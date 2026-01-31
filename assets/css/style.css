@@ -1,0 +1,403 @@
+/* ==========================================================================
+   CONFIGURAZIONE TEMA E VARIABILI GLOBALI
+   ========================================================================== */
+
+:root {
+    /* Colore Primario: Usato per azioni principali e accenti */
+    --primary-color: #1a73e8 !important;
+    /* Palette Scura: Garantisce contrasto elevato per la visualizzazione dati */
+    --background-dark: #0D101E;
+    --surface-dark: #14192D;
+    /* Testo standard leggibile */
+    --text-color: #ffffff;
+}
+
+/* ==========================================================================
+   LAYOUT GLOBALE & RESET
+   ========================================================================== */
+
+/* Forza il contenitore principale ad usare il tema scuro personalizzato */
+.stApp {
+    background-color: var(--background-dark) !important;
+}
+
+/* ==========================================================================
+   PULIZIA UI STREAMLIT (Rimozione Elementi Default)
+   ========================================================================== */
+
+/* Nasconde la barra superiore/header per un look da app nativa */
+[data-testid="stHeader"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Nasconde la toolbar sviluppatore per evitare modifiche accidentali */
+[data-testid="stToolbar"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Rimuove il footer 'Made with Streamlit' per un branding professionale */
+footer {
+    display: none;
+    visibility: hidden;
+}
+
+/* Rimuove le ancore dai titoli per mantenere la UI pulita durante presentazioni */
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Nasconde il pulsante fullscreen sulle immagini per mantenere controllo layout */
+[data-testid="StyledFullScreenButton"] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   COMPONENTI SIDEBAR (Navigazione)
+   ========================================================================== */
+
+/* Contenitore Principale Sidebar - Sfondo più scuro per distinguere la navigazione */
+[data-testid="stSidebar"] {
+    min-width: 200px !important;
+    background-color: #05070E !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Tipografia Sidebar - Leggermente più piccola per alta densità di info */
+[data-testid="stSidebar"] * {
+    font-size: 0.9rem !important;
+}
+
+/* Intestazioni Sidebar - Styling specifico per leggibilità */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    margin-bottom: 0.5rem !important;
+    font-size: 1.1rem !important;
+    color: var(--text-color) !important;
+}
+
+/* Riduce lo spazio verticale tra i blocchi nella sidebar */
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.2rem;
+}
+
+/* Aggiunge respiro al contenitore secondario superiore */
+section[data-testid="stSidebar"]>div>div:nth-of-type(2) {
+    padding-top: 1rem;
+}
+
+/* Personalizza il controllo collassa/espandi per integrarlo nel tema scuro */
+[data-testid="stSidebarCollapsedControl"] {
+    z-index: 999999;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 5px;
+    background-color: var(--surface-dark);
+    color: white !important;
+}
+
+[data-testid="stSidebarCollapsedControl"]:hover {
+    background-color: var(--background-dark);
+}
+
+/* ==========================================================================
+   ELEMENTI PROSA E FORMATTAZIONE
+   ========================================================================== */
+
+/* Riduce padding dei bottoni secondari */
+button[data-testid="baseButton-secondary"] {
+    padding: 0.4rem 1rem !important;
+}
+
+/* ==========================================================================
+   ELEMENTI INTERATTIVI (Bottoni & Input)
+   ========================================================================== */
+
+/* Bottoni Azione Primari - Forma consistente e stile dark surface */
+.stButton>button {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--surface-dark) !important;
+    color: white !important;
+    font-size: 14px !important;
+    font-weight: 400;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+/* Bottoni Download - Aggiunge padding per spaziatura icone */
+.stDownloadButton>button {
+    width: 100% !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--surface-dark) !important;
+    color: white !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+/* Stati Interazione (Hover/Focus) - Feedback visuale per accessibilità */
+.stButton>button:hover,
+.stDownloadButton>button:hover {
+    background-color: #1f2644 !important;
+    color: white !important;
+}
+
+.stButton>button:focus,
+.stButton>button:focus-visible,
+.stDownloadButton>button:focus,
+.stDownloadButton>button:focus-visible {
+    outline: none !important;
+    border-color: #4da6ff !important;
+    box-shadow: 0 0 0 1px #4da6ff !important;
+}
+
+/* Aree Input Testo - Stile scuro integrato */
+[data-testid="stTextArea"] div[data-baseweb="textarea"] {
+    border-color: rgba(128, 128, 128, 0.2) !important;
+    background-color: var(--surface-dark) !important;
+}
+
+[data-testid="stTextArea"] textarea {
+    background-color: var(--surface-dark) !important;
+    color: #ffffff !important;
+}
+
+/* Stato Focus per Input Testo */
+[data-testid="stTextArea"] div[data-baseweb="textarea"]:focus-within {
+    border-color: #4da6ff !important;
+    box-shadow: 0 0 0 1px #4da6ff !important;
+}
+
+/* ==========================================================================
+   FILE UPLOADER PERSONALIZZATO (Hack Localizzazione Italiano)
+   ========================================================================== */
+
+/* Nasconde le istruzioni testuali di default in inglese */
+[data-testid="stFileUploaderDropzoneInstructions"]>div>span,
+[data-testid="stFileUploaderDropzoneInstructions"]>div>small {
+    display: none;
+}
+
+/* Inietta istruzioni in Italiano per l'utente */
+[data-testid="stFileUploaderDropzoneInstructions"]>div::after {
+    display: block;
+    margin-bottom: 0.5rem;
+    content: "Rilascia qui il file .csv";
+
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Stile contenitore Dropzone */
+[data-testid="stFileUploaderDropzone"] {
+    cursor: default;
+    border: 2px dashed rgba(77, 166, 255, 0.4) !important;
+    border-radius: 10px;
+    background-color: transparent !important;
+}
+
+/* Bottone 'Sfoglia File' - Stile personalizzato e mascheramento testo */
+[data-testid="stFileUploaderDropzone"] button {
+    position: relative !important;
+    z-index: 10;
+    visibility: visible !important;
+    min-width: 100px;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+    background-color: var(--surface-dark) !important;
+    color: white !important;
+    font-size: 0 !important;
+    cursor: pointer !important;
+}
+
+/* Inietta testo 'Sfoglia file' sopra il bottone */
+[data-testid="stFileUploaderDropzone"] button::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    content: "Sfoglia file";
+    white-space: nowrap;
+    color: white !important;
+    font-size: 14px !important;
+    visibility: visible !important;
+}
+
+/* Hover e Focus per uploader */
+[data-testid="stFileUploaderDropzone"] button:hover {
+    background-color: #1f2644 !important;
+    color: white !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button:focus,
+[data-testid="stFileUploaderDropzone"] button:focus-visible,
+section[data-testid="stFileUploaderDropzone"]:focus,
+section[data-testid="stFileUploaderDropzone"]:focus-within {
+    border-color: #4da6ff !important;
+    box-shadow: 0 0 0 1px #4da6ff !important;
+}
+
+/* Bottone cancellazione file caricato */
+[data-testid="stFileUploaderDeleteBtn"] {
+    transition: all 0.2s ease !important;
+    border-radius: 8px !important;
+    padding: 0.3rem 0.5rem !important;
+    border: 1px solid transparent !important;
+}
+
+[data-testid="stFileUploaderDeleteBtn"]:hover {
+    background-color: var(--surface-dark) !important;
+    border: 1px solid rgba(128, 128, 128, 0.2) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-2px) !important;
+}
+
+[data-testid="stFileUploaderDeleteBtn"] svg {
+    color: white !important;
+    fill: white !important;
+    opacity: 0.8 !important;
+}
+
+/* ==========================================================================
+   DATI & VISUALIZZAZIONE
+   ========================================================================== */
+
+/* DataFrames/Tabelle - Garantisce utilizzo intera larghezza */
+[data-testid="stDataFrame"],
+[data-testid="stDataFrame"]>div,
+div.stDataFrame,
+div[data-testid="stImage"] {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Metriche - Colore accento per indicatori chiave (KPI) */
+[data-testid="stMetricValue"] {
+    color: #4da6ff !important;
+    font-weight: 400 !important;
+}
+
+/* Tabs - Stile stato navigazione */
+.stTabs [data-baseweb="tab-list"] button[aria-selected="true"] {
+    background-color: transparent !important;
+}
+
+.stTabs [data-baseweb="tab-highlight"] {
+    background-color: #4da6ff !important;
+}
+
+.stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
+    color: #4da6ff !important;
+    font-weight: bold;
+}
+
+.stTabs [data-baseweb="tab-list"] button[aria-selected="false"] p {
+    opacity: 0.7;
+    color: white !important;
+}
+
+/* Nasconde azioni grafici Vega/Altair superflue */
+details[title="Click to view actions"],
+.vega-actions {
+    display: none !important;
+}
+
+/* Box di avviso uniformati al tema scuro */
+.stAlert {
+    background-color: var(--surface-dark) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Accordion/Expander - Styling focus e hover */
+[data-testid="stExpander"] summary:hover,
+[data-testid="stExpander"] summary:hover span,
+[data-testid="stExpander"] summary:hover svg,
+[data-testid="stExpander"] summary[aria-expanded="true"] span {
+    color: #4da6ff !important;
+    fill: #4da6ff !important;
+}
+
+[data-testid="stExpander"] details summary:focus {
+    border-color: #4da6ff !important;
+    box-shadow: 0 0 0 1px #4da6ff !important;
+    border-radius: 8px;
+}
+
+/* ==========================================================================
+   CLASSI COMPONENTI PERSONALIZZATI (Iniettati via Markdown)
+   ========================================================================== */
+
+/* Card Risultato Predizione - Contenitore principale output modello */
+.prediction-card {
+    margin-bottom: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 12px;
+    background-color: var(--surface-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.prediction-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Etichetta Card - Testo metadati superiore */
+.card-label {
+    margin-bottom: 0.5rem;
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Valore Categoria - Testo predizione grande ed evidenziato */
+.category-value {
+    margin: 0;
+    color: #4da6ff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* Badge Priorità - Colorazione semantica per livelli urgenza */
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    color: #000 !important;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Rosso Pastello */
+.badge-Alta {
+    background-color: #ffcdd2;
+}
+
+/* Arancio Pastello */
+.badge-Media {
+    background-color: #ffe0b2;
+}
+
+/* Verde Pastello */
+.badge-Bassa {
+    background-color: #c8e6c9;
+}

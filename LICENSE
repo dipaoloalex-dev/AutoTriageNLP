@@ -1,0 +1,51 @@
+
+LICENZA ACADEMICA PER IL RILASCIO DI SOFTWARE (Academic Public License)
+Versione 1.0 - Gennaio 2026
+
+Copyright (c) 2026 dipaoloalex-dev
+Tutti i diritti riservati.
+
+----------------------------------------------------------------------------------
+PREMESSA
+Questo software è stato sviluppato come parte integrante di un progetto di tesi universitaria (Project Work).
+Lo spirito con cui viene rilasciato è quello della condivisione della conoscenza (Open Knowledge),
+al fine di supportare la ricerca, lo studio e l'apprendimento collaborativo all'interno della comunità accademica.
+
+----------------------------------------------------------------------------------
+1. CONCESSIONE DEI DIRITTI
+L'autore concede a chiunque ottenga una copia di questo software e della relativa documentazione
+il permesso gratuito di utilizzarlo per i seguenti scopi:
+
+   A. STUDIO E RICERCA: È consentito analizzare il codice sorgente per scopi didattici,
+      comprendere le logiche algoritmiche e utilizzarlo come caso di studio.
+   
+   B. MODIFICA E SPERIMENTAZIONE: È consentito modificare, adattare e ampliare il codice
+      per scopi personali, di ricerca o per lo sviluppo di nuovi progetti accademici derivati.
+   
+   C. CONDIVISIONE: È consentito ridistribuire copie del progetto ad altri studenti o ricercatori.
+
+----------------------------------------------------------------------------------
+2. OBBLIGHI E ETICA ACCADEMICA
+L'utilizzo di questo software è subordinato al rispetto delle seguenti condizioni etiche:
+
+   A. ATTRIBUZIONE (Citazione): Chiunque utilizzi parti sostanziali di questo codice
+      all'interno di propri lavori, tesi o pubblicazioni, è tenuto a citare esplicitamente
+      l'autore originale (dipaoloalex-dev) e a includere un riferimento a questo repository.
+      
+   B. DIVIETO DI PLAGIO: Non è consentito presentare questo lavoro, in tutto o in parte,
+      come opera propria in contesti accademici o valutativi senza la corretta attribuzione.
+
+----------------------------------------------------------------------------------
+3. LIMITAZIONI COMMERCIALI
+Salvo esplicita autorizzazione scritta da parte dell'autore, non è consentito l'uso
+di questo software a scopo di lucro o per la commercializzazione diretta di prodotti derivati.
+
+----------------------------------------------------------------------------------
+4. ESCLUSIONE DI GARANZIA (Disclaimer)
+Il software è fornito "COSÌ COM'È", senza alcuna garanzia esplicita o implicita.
+Essendo un prototipo accademico, l'autore non garantisce che il software sia privo di errori,
+nè si assume alcuna responsabilità per eventuali danni diretti o indiretti derivanti dal suo utilizzo.
+L'utente si assume il rischio totale relativo alla qualità e alle prestazioni del software.
+
+----------------------------------------------------------------------------------
+Per qualsiasi richiesta di utilizzo diversa da quanto sopra specificato, si prega di contattare l'autore tramite i canali ufficiali del repository.

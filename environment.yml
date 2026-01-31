@@ -1,0 +1,20 @@
+name: autotriage
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pandas
+  - scikit-learn
+  - streamlit=1.32.0
+  - numpy
+  - nltk
+  - matplotlib
+  - seaborn
+  - pip
+  - pip:
+      - deep-translator
+      - lime
+      - joblib
+      - tqdm
+      - watchdog

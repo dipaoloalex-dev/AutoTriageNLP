@@ -1,0 +1,98 @@
+# ==============================================================================
+# BASE PYTHON
+# ==============================================================================
+
+# File compilati e cache per ottimizzazione esecuzione
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Estensioni C
+*.so
+
+# Artefatti di distribuzione e packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ==============================================================================
+# AMBIENTI VIRTUALI
+# ==============================================================================
+
+# Ignora cartelle locali env per prevenire conflitti tra macchine
+venv/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# ==============================================================================
+# CONFIGURAZIONI IDE & EDITOR
+# ==============================================================================
+
+# Configurazioni VS Code (specifiche utente)
+.vscode/
+
+# PyCharm / IntelliJ
+.idea/
+
+# File di sistema Mac OS (posizioni icone, ecc.)
+.DS_Store
+
+# ==============================================================================
+# DATASET ML & ARTEFATTI
+# ==============================================================================
+
+# File dati pesanti - la "source of truth" dovrebbe essere storage esterno (S3/Kaggle)
+data/synthetic_tickets.csv
+data/tickets_it_augmented.csv
+data/*.csv
+data/*.parquet
+data/*.json
+
+# Modelli Serializzati - binari pesanti, rigenerabili via script di training
+models/*.pkl
+models/*.h5
+models/*.pt
+models/*.onnx
+
+# Output di Training - report automatici e metriche
+metrics_summary.json
+metrics_report_unified.txt
+runs/
+logs/
+
+# ==============================================================================
+# ASSET GENERATI
+# ==============================================================================
+
+# Immagini generate dinamicamente dagli script di analisi
+assets/img/png/*.png
+# Mantieni il logo in quanto asset statico fondamentale
+!assets/img/png/logo.png
+
+# Grafici esperimento comparativo
+assets/img/comparison/
+
+# ==============================================================================
+# SICUREZZA & SEGRETI
+# ==============================================================================
+
+.env
+.env.local
+.ipynb_checkpoints
+secrets.yaml
+credentials.json
