@@ -54,7 +54,7 @@
 
    ```bash
    # Clona il repository
-   git clone [https://github.com/dipaoloalex-dev/AutoTriageNLP.git](https://github.com/dipaoloalex-dev/AutoTriageNLP.git)
+   git clone https://github.com/dipaoloalex-dev/AutoTriageNLP.git
    cd AutoTriageNLP
 
    # Crea l'ambiente (include Python 3.10, Pandas, Sklearn, Streamlit)
