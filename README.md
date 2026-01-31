@@ -1,69 +1,48 @@
-# 🤖 AutoTriage NLP
+<div align="center">
 
-Questo repository contiene il codice sorgente completo per **AutoTriage NLP**, un prototipo software modulare progettato per automatizzare il processo di smistamento (*triage*) dei ticket di assistenza aziendale.
+<img src="assets/img/png/logo.png" alt="AutoTriage NLP Logo" width="200"/>
 
-Il sistema sfrutta tecniche di **Natural Language Processing (NLP)** e **Machine Learning (ML)** per analizzare il contenuto semantico delle richieste, classificandole automaticamente per reparto di competenza e stimandone la priorità operativa con un approccio ibrido (statistico e *rule-based*).
+# AutoTriage NLP
 
-## 🌟 Funzionalità Chiave
+**Sistema intelligente di classificazione e prioritarizzazione ticket per l'assistenza aziendale**
 
-1. **Data Engineering & Real-World Simulation:**
-   - **Pipeline di Preparazione Dati:** Modulo avanzato (`prepare_data.py`) che non si limita a dati sintetici, ma ingerisce dataset reali di customer care (es. Kaggle).
-   - **Traduzione Automatica Neurale:** Integrazione della libreria `deep-translator` con parallelizzazione (`ThreadPoolExecutor`) per convertire massivamente dataset dall'inglese all'italiano, simulando una morfologia linguistica complessa e realistica.
-   - **Mappatura Intelligente:** Algoritmi di normalizzazione che convertono le etichette originali (es. "Refund", "Hardware") nelle macro-categorie target (Amministrazione, Tecnico, Commerciale).
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.32-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Scikit-Learn](https://img.shields.io/badge/sklearn-1.3-orange?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![License](https://img.shields.io/badge/License-Academic-green)](LICENSE)
 
-2. **Pipeline di Machine Learning (Scikit-Learn):**
-   - **Preprocessing:** Pulizia automatica del testo (conversione in minuscolo, rimozione punteggiatura e *stopwords* italiane estese).
-   - **Vettorizzazione:** Trasformazione del testo in matrici numeriche sparse tramite algoritmi **TF-IDF** con supporto n-grammi (unigrammi e bigrammi) per catturare il contesto locale.
-   - **Classificazione Multi-Task Probabilistica:** Utilizzo di un'architettura **UnifiedModel** basata su **Logistic Regression** incapsulata in un *MultiOutputClassifier*. Questa scelta permette di ottenere non solo la classe predetta, ma anche le **probabilità di confidenza** (`predict_proba`), fondamentali per la gestione delle soglie di rischio.
+`⭐ Aggiungici una stella su GitHub per supportare il progetto!`
 
-3. **Logica di Priorità "Risk-Averse" (Ibrida):**
-   - Il sistema combina le probabilità del modello ML con un motore di regole basato su keyword critiche (es. "fermo", "hacker", "scadenza").
-   - Questo approccio garantisce che ticket ad alto rischio non vengano mai sottovalutati, forzando un'escalation ("Alta Priorità") anche se il modello statistico è incerto.
+</div>
 
-4. **Explainable AI (LIME Integration):**
-   - Integrazione di **LIME (Local Interpretable Model-agnostic Explanations)**.
-   - A differenza della semplice analisi dei pesi globali, il sistema spiega ogni *singola* predizione perturbando il testo e identificando le parole specifiche che hanno determinato l'output per quel preciso ticket.
+---
 
-5. **Interfaccia Utente Interattiva (Streamlit):**
-   - Dashboard web reattiva e *user-friendly* (`app.py`) con design personalizzato (CSS *Dark Blue/Inter font*).
-   - **Analisi Live:** Inserimento manuale di ticket per una classificazione istantanea.
-   - **Batch Processing:** Caricamento di file CSV massivi per l'analisi automatica di interi lotti.
-   - **Reportistica:** Visualizzazione grafica delle metriche di performance (Confusion Matrix, Accuracy, F1-Score).
+## Caratteristiche Principali
 
-## 🏗️ Architettura del Progetto
+* **Unified Model Architecture**: Un singolo modello (`MultiOutputClassifier`) predice simultaneamente **Reparto** (Tecnico, Commerciale) e **Priorità** (Alta, Media, Bassa).
+* **Risk-Averse Logic**: Un layer di sicurezza deterministico (keyword critiche) sovrascrive il modello ML per garantire che le urgenze (es. "Hacker", "Server Down") non vengano mai ignorate.
+* **Explainable AI (LIME)**: Ogni predizione è giustificata visivamente. Il sistema mostra *quali parole* hanno determinato la scelta.
+* **Real-World Data**: Pipeline ETL avanzata che traduce e adatta dataset reali (Kaggle) invece di usare dati sintetici.
 
-La struttura del repository è organizzata in moduli logici distinti per garantire manutenibilità e scalabilità:
+---
+
+## Architettura del Progetto
 
 ```plaintext
 /
-├── assets/                  # Risorse statiche
-│   ├── css/                 # Fogli di stile personalizzati (style.css)
-│   └── img/                 # Loghi e grafici generati (png/ico)
-├── data/                    # Dataset
-│   ├── kaggle_tickets.csv      # Dataset originale (EN/DE)
-│   ├── kaggle_tickets_it.csv   # Dataset tradotto (IT - Ready-to-use)
-│   └── tickets_it_augmented.csv # Dataset finale per training
+├── assets/                  # Risorse statiche (CSS, Img)
+├── data/                    # Dataset (Raw, Translated, Augmented)
 ├── models/                  # Modelli ML serializzati (.pkl)
 ├── src/                     # Codice Sorgente Python
-│   ├── app.py               # Frontend (Streamlit Dashboard & LIME logic)
-│   ├── translate_data.py    # [CORE] Script traduzione automatica dataset
-│   ├── prepare_data.py      # Pipeline pulizia e preparazione dati training
-│   ├── unified_model.py     # Definizione della classe modello
-│   └── train_unified_model.py # Script di addestramento e valutazione
-├── metrics_report_unified.txt # Report testuale automatico delle performance
-└── requirements.txt         # Elenco delle dipendenze Python
+│   ├── app.py               # [GUI] Streamlit Dashboard
+│   ├── unified_model.py     # [CORE] Classe Modello ML
+│   ├── train_unified_model.py # [ML] Training Pipeline
+│   ├── compare_models.py    # [TEST] Scientific Experiment
+│   └── ...                  # Data Pipelines
+└── environment.yml          # Dipendenze Conda
 ```
 
-### Strategia Gestione Dati
-Il progetto adotta un approccio ibrido per bilanciare **Efficienza (Developer Experience)** e **Riproducibilità Tecnica**:
-1.  **Dataset Pre-Tradotto (`data/kaggle_tickets_it.csv`):** Fornito direttamente nel repository per permettere l'immediato utilizzo e training del modello senza attese (zero-config).
-2.  **Pipeline di Traduzione (`src/translate_data.py`):** Viene fornito lo script completo che ha generato il dataset italiano partendo dai dati grezzi. Questo dimostra la completa padronanza della pipeline di Data Engineering e permette di rigenerare i dati da zero se necessario.
-
-### Flusso Operativo (Workflow)
-1. **Data Translation (Opzionale):** `translate_data.py` → Legge Raw Data → Chiama API Translator → Genera CSV Italiano. *(Già eseguito per comodità)*.
-2. **Data Preparation:** `prepare_data.py` → Legge CSV Italiano → Normalizza → Crea `data/tickets_it_augmented.csv`.
-3. **Model Training:** `train_unified_model.py` → Carica CSV → Split Train/Test → Training (MultiOutput Logistic Regression) → Salva `.pkl` in `models/` + Grafici in `assets/`.
-4. **Deployment:** `app.py` → Carica `.pkl` → Interfaccia Web per l'utente finale con supporto LIME.
+---
 
 ## 📦 Installazione e Configurazione
 
@@ -71,97 +50,91 @@ Il progetto adotta un approccio ibrido per bilanciare **Efficienza (Developer Ex
 - **Python 3.10+** installato sul sistema.
 - Un ambiente virtuale (consigliato).
 
-### Setup Rapido (Consigliato con Conda)
+### Setup Rapido
 
-Per garantire la massima compatibilità e replicabilità dell'ambiente (evitando problemi di stile o librerie mancanti), si consiglia l'uso di **Conda**.
-
-1. **Clona il repository:**
    ```bash
-   git clone https://github.com/dipaoloalex-dev/AutoTriageNLP.git
+   # Clona il repository
+   git clone [https://github.com/dipaoloalex-dev/AutoTriageNLP.git](https://github.com/dipaoloalex-dev/AutoTriageNLP.git)
    cd AutoTriageNLP
-   ```
 
-2. **Crea l'ambiente dedicato (`autotriage`):**
-   Questo comando installerà Python 3.10 e tutte le librerie necessarie (pandas, scikit-learn, streamlit, ecc.) in un ambiente isolato e pulito.
-   ```bash
+   # Crea l'ambiente (include Python 3.10, Pandas, Sklearn, Streamlit)
    conda env create -f environment.yml
-   ```
-   **Nota**: L'opzione `--force` è utile se hai già provato a creare l'ambiente in precedenza; sovrascriverà eventuali installazioni parziali.
 
-3. **Attiva l'ambiente:**
-   ```bash
+   # Attiva l'ambiente
    conda activate autotriage
    ```
-   **Nota**: Assicurati di vedere `(autotriage)` nel tuo terminale prima di proseguire. Se usi ancora `(base)`, le dipendenze potrebbero essere errate.
-
-## 🚀 Guida all'Esecuzione
-
-Il sistema è progettato per essere eseguito in sequenza logica.
-
-### Passo 1: Preparazione dei Dati (Data Prep)
-Poiché il dataset tradotto è già fornito (`kaggle_tickets_it.csv`), puoi passare direttamente alla preparazione per il training (pulizia e normalizzazione):
-
-```bash
-python src/prepare_data.py
-```
-*Output atteso:* Generazione di `tickets_it_augmented.csv` pronto per l'addestramento.
-
-*(Nota: Se volessi rigenerare le traduzioni da zero, puoi lanciare `python src/translate_data.py`, ma richiede diverse ore).*
-
-### Passo 2: Addestramento del Modello
-Avvia la pipeline di Machine Learning. Lo script eseguirà il preprocessing, addestrerà il `UnifiedModel`, calcolerà le metriche di validazione e salverà i file necessari.
-
-```bash
-python src/train_unified_model.py
-```
-
-*Output atteso:* Report di classificazione a terminale, generazione grafici in `assets/img/png` e salvataggio modello.
-
-### Passo 3: Esperimento di Confronto (Dati Sintetici vs Reali)
-**⚠️ PASSO OBBLIGATORIO** - Questo esperimento genera i grafici comparativi visualizzati nel tab "Confronto Dati Sintetici vs Reali" della dashboard.
-
-#### 3.1 Generazione Dataset Sintetico
-Crea un dataset di 500 ticket sintetici con regole fisse:
-```bash
-python src/generate_synthetic_data.py
-```
-
-#### 3.2 Esecuzione Esperimento Cross-Validation
-Addestra due modelli (uno su dati sintetici, uno su dati reali) e valuta le performance incrociate:
-```bash
-python src/compare_models.py
-```
-
-*Output atteso:* Report testuale con metriche comparative e 3 grafici salvati in `assets/img/comparison/`.
-
-**Nota**: Senza questo step, il quarto tab della dashboard mostrerà un messaggio informativo ma nessun grafico.
 
 ---
 
-### Passo 4: Avvio della Dashboard
-Lancia l'applicazione web con Streamlit.
+## Guida all'Esecuzione
+
+### Passo 1: Data Preparation (ETL)
+
+```bash
+python src/prepare_data.py
+# Output: data/tickets_it_augmented.csv
+```
+Ingestione, normalizzazione e pulizia del dataset Kaggle tradotto. *(Nota: Se volessi rigenerare le traduzioni da zero, puoi lanciare `python src/translate_data.py`, ma richiede diverse ore).*
+
+### Passo 2: Model Training
+
+```bash
+python src/train_unified_model.py
+# Output: models/unified_model.pkl + assets/img/png/*.
+```
+Addestramento del `UnifiedModel`, validazione e salvataggio artefatti.
+
+### Passo 3: Scientific Validation
+
+```bash
+python src/generate_synthetic_data.py
+
+python src/compare_models.py
+# Output: assets/img/comparison/*.
+```
+Esecuzione dell'esperimento A/B: confronto tra modello addestrato su dati Reali vs Sintetici.
+
+### Passo 4: Launch Dashboard
 
 ```bash
 python -m streamlit run src/app.py
 ```
+✅ Avvia l'interfaccia web per l'utente finale.
 
-- Il browser si aprirà automaticamente all'indirizzo `http://localhost:8501`.
-- **Nota Importante:** Usiamo `python -m streamlit` invece di `streamlit` direttamente per garantire che venga utilizzato lo Streamlit installato nel virtual environment e non quello eventualmente presente in Anaconda globale. Questo previene conflitti di versione tra le librerie.
-- Se riscontri errori di percorso, assicurati di eseguire il comando dalla root del progetto.
+---
 
-## 🖊️ Funzionalità della Dashboard
+## Funzionalità della Dashboard
 
-### Tab 1: Inserimento Manuale
-- **Input:** Area di testo per scrivere o incollare un ticket.
-- **Azione:** Cliccando su "Analizza", il modello elabora il testo in tempo reale.
-- **Output:**
-  - **Reparto Consigliato:** Categoria predetta (es. Tecnico).
-  - **Livello d'Urgenza:** Priorità stimata (es. Alta - colorato semanticamente).
-  - **Explainable AI:** Grafico a barre con le parole chiave che hanno influenzato la decisione (es. "database", "errore" -> Tecnico).
+L'interfaccia Streamlit è suddivisa in tab funzionali:
 
-### Tab 2: Importazione da File (Batch Processing)
-- **Input:** Caricamento di un file CSV.
-- **Formato Richiesto:** Il file deve contenere almeno una colonna `text` con i messaggi dei ticket.
-- **Esempio:** Puoi trovare un file di test pronto all'uso in:
-  `assets/csv/ticket.csv`
-- **Output:** Tabella interattiva con Classificazione, Priorità e Confidenza per ogni riga. Possibilità di scaricare il report finale come nuovo CSV.
+### Tab 1: Analisi Live
+Input manuale per test rapidi. Include:
+- **Classificazione:** Reparto e Priorità.
+- **XAI Chart:** Grafico LIME che spiega perché (es. "La parola 'Fattura' pesa 0.4 verso Amministrazione").
+
+### Tab 2: Batch Processing
+Caricamento file CSV massivi.
+- **Input:** File CSV con colonna `text` .
+- **Output:** Tabella interattiva scaricabile con predizioni e score di confidenza.
+- **File Test:** Usa `assets/csv/ticket.csv`.
+
+### Tab 3 & 4: Metriche & Confronto
+Visualizzazione scientifica delle performance:
+- **Confusion Matrix:** Dove sbaglia il modello?
+- **Real vs Synthetic:** Dimostrazione grafica della superiorità dei dati reali.
+
+---
+
+## License
+
+Academic Public License - Vedi [LICENSE](LICENSE) per dettagli.
+
+Software rilasciato per scopi didattici e di ricerca (Project Work L-31).
+
+---
+
+<div align="center">
+   
+**[Documentazione PDF](assets/doc/template.pdf)** · **[Dataset Kaggle](https://www.kaggle.com/)**
+   
+</div>
