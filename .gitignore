@@ -59,7 +59,6 @@ venv.bak/
 # File dati pesanti - la "source of truth" dovrebbe essere storage esterno (S3/Kaggle)
 data/synthetic_tickets.csv
 data/tickets_it_augmented.csv
-data/*.csv
 data/*.parquet
 data/*.json
 
