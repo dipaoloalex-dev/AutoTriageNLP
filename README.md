@@ -19,7 +19,7 @@
 
 ## Caratteristiche Principali
 
-* **Unified Model Architecture**: Un singolo modello (`MultiOutputClassifier`) predice simultaneamente **Reparto** (Tecnico, Commerciale) e **Priorità** (Alta, Media, Bassa).
+* **Unified Model Architecture**: Un singolo modello (`MultiOutputClassifier`) predice simultaneamente **Reparto** (Tecnico, Commerciale, Amministrativo) e **Priorità** (Alta, Media, Bassa).
 * **Risk-Averse Logic**: Un layer di sicurezza deterministico (keyword critiche) sovrascrive il modello ML per garantire che le urgenze (es. "Hacker", "Server Down") non vengano mai ignorate.
 * **Explainable AI (LIME)**: Ogni predizione è giustificata visivamente. Il sistema mostra *quali parole* hanno determinato la scelta.
 * **Real-World Data**: Pipeline ETL avanzata che traduce e adatta dataset reali (Kaggle) invece di usare dati sintetici.
