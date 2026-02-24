@@ -28,3 +28,7 @@ assets/img/png/*.png
 
 # Variabili d'ambiente / file locali
 .env
+
+# Dataset generati
+data/synthetic_tickets.csv
+data/tickets_it_augmented.csv
