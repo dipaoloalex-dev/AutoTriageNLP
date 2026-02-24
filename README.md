@@ -89,13 +89,13 @@ python src/train_unified_model.py
 ```
 Questo script legge il file CSV preparato al passo precedente, effettua lo split dei dati (80/20 per Train e Test), addestra il modello logistico e salva le metriche (Accuracy, F1-Score) e il file binario `.pkl`.
 
-### Passo 3: Esecuzione del Test Comparativo (Opzionale)
+### Passo 3: Esecuzione del Test Comparativo
 
 ```bash
 python src/generate_synthetic_data.py
 python src/compare_models.py
 ```
-Se vuoi riprodurre il test documentato nella relazione (dove dimostro che addestrare sui dati sintetici porta in overfitting ), esegui questi due script.
+Esegui questi due script per riprodurre il test documentato nella relazione, dove viene dimostrato che l'addestramento su dati sintetici porta all'overfitting.
 
 ### Passo 4: Avvio dell'Applicazione Web
 
