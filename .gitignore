@@ -1,0 +1,30 @@
+# Cache e compilati Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambienti virtuali
+venv/
+env/
+.venv/
+
+# IDE e OS
+.vscode/
+.idea/
+.DS_Store
+
+# Modelli addestrati (pesanti, li rigenero con lo script)
+models/*.pkl
+
+# Report e metriche generati in automatico
+metrics_summary.json
+metrics_report_unified.txt
+
+# Immagini generate dagli script (grafici, matrici, ecc.)
+assets/img/png/*.png
+
+# Eccezione: voglio che il logo venga pushato su GitHub
+!assets/img/png/logo.png
+
+# Variabili d'ambiente / file locali
+.env

@@ -1,0 +1,20 @@
+Licenza e Termini di Utilizzo - Project Work Universitario
+Copyright (c) 2026 Alex Di Paolo (dipaoloalex-dev)
+
+Questo software è stato sviluppato esclusivamente come progetto (Project Work) per il corso in Informatica per le Aziende Digitali (L-31). 
+
+Ho deciso di rendere pubblico questo repository per poter mostrare la demo e il codice sorgente in sede di valutazione, ma anche nello spirito della condivisione: 
+chiunque sia interessato all'argomento può dare un'occhiata a come ho strutturato il lavoro.
+
+Cosa puoi fare con questo codice:
+- Puoi scaricarlo, leggerlo e usarlo per studiare o fare pratica.
+- Puoi modificarlo, sperimentare e usarlo come base per capire come integrare il Machine Learning con un'interfaccia web.
+
+Cosa ti chiedo di NON fare:
+- Copiare questo progetto (o parti sostanziali di esso) e presentarlo come tuo per un esame universitario. Oltre a essere scorretto (plagio), i software dell'Ateneo e i docenti se ne accorgerebbero. 
+  Se prendi spunto per un tuo lavoro, per favore cita questo repository.
+- Usare questo codice "così com'è" per scopi commerciali. È un prototipo didattico, non è ottimizzato per reggere i carichi di un ambiente di produzione aziendale reale.
+
+Disclaimer:
+Il codice è fornito "così com'è", senza alcuna garanzia. Essendo un progetto studentesco, potrebbe contenere bug o comportamenti imprevisti. 
+Non mi assumo responsabilità per eventuali problemi derivanti dal suo utilizzo.
