@@ -109,20 +109,20 @@ export default function ComparisonPage() {
           {/* Modello A su Dati Reali */}
           <div className="text-center p-6 rounded-xl bg-white/5">
             <h3 className="text-lg font-semibold mb-2">Modello A su Dati Reali</h3>
-            <div className="text-5xl font-bold text-red-400 mb-2">~50%</div>
+            <div className="text-5xl font-bold text-red-400 mb-2">~45-55%</div>
             <p className="text-sm text-red-400">Accuracy 📉</p>
             <p className="text-xs text-gray-400 mt-3">
-                  Il modello sintetico va in crisi con il linguaggio umano reale perché cerca pattern esatti che non trova.
+              <em>Valore stimato</em> - Il modello sintetico va in crisi con il linguaggio umano reale perché cerca pattern esatti che non trova.
             </p>
           </div>
 
           {/* Modello B su Dati Sintetici */}
           <div className="text-center p-6 rounded-xl bg-white/5">
             <h3 className="text-lg font-semibold mb-2">Modello B su Dati Sintetici</h3>
-            <div className="text-5xl font-bold text-green-400 mb-2">~70%</div>
+            <div className="text-5xl font-bold text-green-400 mb-2">~65-75%</div>
             <p className="text-sm text-green-400">Accuracy 📈</p>
             <p className="text-xs text-gray-400 mt-3">
-                  Il modello addestrato su dati reali gestisce bene anche i ticket sintetici, dimostrando ottima generalizzazione.
+              <em>Valore stimato</em> - Il modello addestrato su dati reali gestisce bene anche i ticket sintetici, dimostrando ottima generalizzazione.
             </p>
           </div>
         </div>

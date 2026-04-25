@@ -338,3 +338,25 @@ div[style*="position: fixed"][style*="right"],
 div[style*="position:fixed"][style*="right"] {
   display: none !important;
 }
+
+/* Nascondi elementi che contengono 'Next' o 'N' nel testo */
+div[class*="nextjs"]:not([class*="toast"]):not([class*="button"]):not([class*="link"]),
+span[class*="nextjs"]:not([class*="toast"]):not([class*="button"]):not([class*="link"]),
+a[href*="next"][style*="position: fixed"],
+div[style*="position: fixed"][style*="bottom: 16px"][style*="left: 16px"],
+div[style*="position: fixed"][style*="bottom:12px"][style*="left: 12px"] {
+  display: none !important;
+}
+
+/* Nascondi badge Next.js con lettera N */
+div[style*="position: fixed"] span:only-child:empty,
+div[style*="position: fixed"] span[class*="badge"],
+div[style*="position: fixed"] span[class*="indicator"] {
+  display: none !important;
+}
+
+/* Nascondi tooltip con 'Next' */
+[title*="Next.js"],
+[aria-label*="Next.js"] {
+  display: none !important;
+}

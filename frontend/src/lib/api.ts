@@ -13,22 +13,46 @@
  */
 
 import axios, { AxiosError } from "axios";
-import { API_ENDPOINTS } from "./constants";
 
 // ========================================
 // CONFIGURAZIONE AXIOS
 // ========================================
+/**
+ * Legge il base URL dalle variabili d'ambiente.
+ * Le variabili NEXT_PUBLIC_* sono disponibili lato client in Next.js.
+ */
+function getApiBaseUrl(): string {
+  // Try process.env (runtime)
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  // Fallback per sviluppo
+  return "http://localhost:8000";
+}
+
+const API_BASE_URL = getApiBaseUrl();
+
 /**
  * Istanza Axios configurata con:
  * - Base URL comune a tutti gli endpoint
  * - Header Content-Type: application/json
  */
 const api = axios.create({
-  baseURL: API_ENDPOINTS.CLASSIFY.split("/api/v1")[0],  // Estrae base URL
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+// Endpoint API
+const API_ENDPOINTS = {
+  CLASSIFY: `${API_BASE_URL}/api/v1/ticket/classify`,
+  BATCH: `${API_BASE_URL}/api/v1/ticket/batch`,
+  UPLOAD_CSV: `${API_BASE_URL}/api/v1/ticket/upload-csv`,
+  METRICS_SUMMARY: `${API_BASE_URL}/api/v1/metrics/summary`,
+  METRICS_IMAGES: `${API_BASE_URL}/api/v1/metrics/images`,
+  HEALTH: `${API_BASE_URL}/api/v1/health`,
+};
 
 // ========================================
 // TIPI PER RISPOSTE API
@@ -168,11 +192,14 @@ export async function uploadCSV(file: File): Promise<any> {
  */
 export async function getMetricsSummary(): Promise<MetricsSummary> {
   try {
+    console.log("Fetching metrics from:", API_ENDPOINTS.METRICS_SUMMARY);
     const response = await api.get(API_ENDPOINTS.METRICS_SUMMARY);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<any>;
     console.error("Error fetching metrics:", axiosError.response?.data || axiosError.message);
+    console.error("Request URL:", API_ENDPOINTS.METRICS_SUMMARY);
+    console.error("Full error:", error);
     throw new Error(axiosError.response?.data?.detail || "Errore durante il recupero delle metriche");
   }
 }
