@@ -37,7 +37,7 @@ DATA_PATH: str = os.path.join('data', 'tickets_it_augmented.csv')
 # Percorso dove salvare il modello addestrato
 MODEL_PATH: str = os.path.join('models', 'unified_model.pkl')
 # Cartella dove salvare i grafici generati
-IMG_DIR: str = os.path.join('assets', 'img', 'png')
+IMG_DIR: str = os.path.join('img', 'png')
 # File di testo con il report completo delle metriche
 REPORT_FILE: str = "metrics_report_unified.txt"
 
@@ -130,6 +130,14 @@ def save_metric_charts(report_dict: Dict[str, Any], prefix: str) -> None:
 def main() -> None:
     """Esegue l'intera pipeline di training e valutazione del modello."""
     print("Avvio addestramento del modello unificato...")
+
+    # ----------------------------------------
+    # CREAZIONE CARTELLE NECESSARIE
+    # ----------------------------------------
+    # Crea la cartella per le immagini se non esiste
+    os.makedirs(IMG_DIR, exist_ok=True)
+    # Crea la cartella per il modello se non esiste
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
 
     # ----------------------------------------
     # VERIFICA E CARICAMENTO DATASET
