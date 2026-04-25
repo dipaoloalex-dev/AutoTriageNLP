@@ -246,8 +246,8 @@ def main() -> None:
         json.dump(metrics_summary, f)
 
     # ========================================
-    // COMPLETAMENTO
-    // ========================================
+    # COMPLETAMENTO
+    # ========================================
     print("-" * 30)
     print("Processo terminato con successo.")
     print(f"File del modello salvato in: {MODEL_PATH}")
