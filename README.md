@@ -77,9 +77,6 @@ pip install --upgrade pip
 # 5. Installa dipendenze con timeout esteso (per connessioni lente)
 pip install -r requirements.txt --timeout 300 --retries 5
 
-# Se hai ancora problemi di timeout, prova anche:
-# pip install -r requirements.txt --default-timeout=1000
-
 # 6. Copia configurazione ambiente
 cp .env.example .env
 
@@ -214,10 +211,25 @@ docker-compose down
 
 ---
 
-## 📝 Note
+## 📝 Note Importanti
+
+**⚠️ Modello ML richiesto:**
+Questo progetto è fornito in stato "vergine" (senza modello pre-addestrato). Prima di avviare il backend, devi:
+
+1. **Addestrare il modello** (richiede dataset):
+   ```bash
+   # Assicurati di avere i dataset nella cartella data/
+   python src/train_unified_model.py
+   ```
+
+2. **Verifica che il modello esista**:
+   ```bash
+   ls -la models/unified_model.pkl
+   ```
+
+**Senza il modello, il backend partirà ma le API di classificazione non funzioneranno.**
 
 - La prima volta che avvii, l'installazione delle dipendenze potrebbe richiedere qualche minuto
-- Assicurati di avere il file `models/unified_model.pkl` prima di avviare il backend
 - Per sviluppo, usa `npm run dev` (hot reload attivo)
 - Per produzione, usa `npm run build && npm start`
 
