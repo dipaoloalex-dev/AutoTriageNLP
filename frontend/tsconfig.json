@@ -1,0 +1,110 @@
+/**
+ * Configurazione TypeScript per Next.js
+ * =====================================
+ *
+ * Questo file definisce come il compilatore TypeScript deve
+ * comportarsi con il progetto Next.js.
+ *
+ * Documentazione: https://www.typescriptlang.org/tsconfig
+ */
+{
+  "compilerOptions": {
+    // ----------------------------------------
+    // TARGET E LIBRERIE
+    // ----------------------------------------
+    // Versione ECMAScript di destinazione per la compilazione
+    // ES2017 è supportato da tutti i browser moderni
+    "target": "ES2017",
+
+    // Librerie di tipi da includere (DOM, ES features moderne)
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    // ----------------------------------------
+    // COMPATIBILITÀ JAVASCRIPT
+    // ----------------------------------------
+    // Permette di importare file .js nei file .ts
+    "allowJs": true,
+
+    // Salta il controllo dei tipi nei file .d.ts (più veloce)
+    "skipLibCheck": true,
+
+    // ----------------------------------------
+    // TIPI STRETTI
+    // ----------------------------------------
+    // Abilita tutte le opzioni di controllo tipo rigorose
+    // (noImplicitAny, strictNullCheck, strictFunctionTypes, ecc.)
+    "strict": true,
+
+    // ----------------------------------------
+    // OUTPUT
+    // ----------------------------------------
+    // Non genera file di output (Next.js si occupa della compilazione)
+    "noEmit": true,
+
+    // ----------------------------------------
+    // MODULES
+    // ----------------------------------------
+    // Permette l'import di moduli CommonJS come se fossero ES6
+    "esModuleInterop": true,
+
+    // Tipo di modulo per il codice sorgente
+    "module": "esnext",
+
+    // Strategia di risoluzione dei moduli (bundler = lasciare a Next.js/Webpack)
+    "moduleResolution": "bundler",
+
+    // Permette l'import di file .json con import
+    "resolveJsonModule": true,
+
+    // Tratta ogni file come un modulo indipendente (per vite/next)
+    "isolatedModules": true,
+
+    // ----------------------------------------
+    // JSX
+    // ----------------------------------------
+    // Preserva la sintassi JSX (Next.js si occupa della trasformazione)
+    "jsx": "preserve",
+
+    // ----------------------------------------
+    // INCREMENTAL
+    // ----------------------------------------
+    // Abilita la compilazione incrementale (più veloce dopo la prima)
+    "incremental": true,
+
+    // ----------------------------------------
+    // PLUGINS
+    // ----------------------------------------
+    // Plugin TypeScript per Next.js (fornisce tipi specifici)
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    // ----------------------------------------
+    // PATH ALIASES
+    // ----------------------------------------
+    // Definisce alias per gli import
+    // Invece di: import Component from '../../../src/components/...'
+    // Puoi fare: import Component from '@/components/...'
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+
+  // ----------------------------------------
+  // INCLUSIONI ED ESCLUSIONI
+  // ----------------------------------------
+  // File da includere nel controllo dei tipi
+  "include": [
+    "next-env.d.ts",      // Tipi generati automaticamente da Next.js
+    "**/*.ts",            // Tutti i file TypeScript
+    "**/*.tsx",           // Tutti i file TypeScript React
+    ".next/types/**/*.ts" // Tipi interni di Next.js
+  ],
+
+  // File/cartelle da escludere
+  "exclude": [
+    "node_modules"        // Dipendenze esterne (hanno già i loro tipi)
+  ]
+}

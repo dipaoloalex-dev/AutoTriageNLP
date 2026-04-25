@@ -1,0 +1,99 @@
+/**
+ * Package.json - Manifesto del progetto Frontend
+ * ===============================================
+ *
+ * Contiene metadati, script, dipendenze e configurazione del progetto.
+ *
+ * Documentazione npm: https://docs.npmjs.com/cli/v9/configuring-npm/package-json
+ */
+{
+  "name": "autotriage-frontend",
+  "version": "2.0.0",
+  "private": true,
+
+  // ========================================
+  // SCRIPTS
+  // ========================================
+  // Comandi eseguibili da terminale con npm run <script>
+  "scripts": {
+    // Avvia il server di sviluppo con hot-reload
+    "dev": "next dev",
+
+    // Crea la build di produzione (ottimizzata)
+    "build": "next build",
+
+    // Avvia il server di produzione (dopo la build)
+    "start": "next start",
+
+    // Esegue il linter per verificare la qualità del codice
+    "lint": "next lint"
+  },
+
+  // ========================================
+  // DIPENDENZE PRODUZIONE
+  // ========================================
+  // Pacchetti necessari per l'esecuzione dell'applicazione
+  "dependencies": {
+    // ----------------------------------------
+    // FRAMEWORK CORE
+    // ----------------------------------------
+    "next": "^15.0.0",        // Framework React per SSR/SSG
+    "react": "^18.3.0",       // Libreria UI principale
+    "react-dom": "^18.3.0",   // Binding React per il DOM
+
+    // ----------------------------------------
+    // HTTP CLIENT
+    // ----------------------------------------
+    "axios": "^1.6.0",        // Client per chiamate API al backend
+
+    // ----------------------------------------
+    // VISUALIZZAZIONE DATI
+    // ----------------------------------------
+    "chart.js": "^4.4.0",             // Libreria per grafici
+    "react-chartjs-2": "^5.2.0",      // Wrapper React per Chart.js
+
+    // ----------------------------------------
+    // ANIMAZIONI
+    // ----------------------------------------
+    "framer-motion": "^11.0.0", // Animazioni fluide e transizioni
+
+    // ----------------------------------------
+    // ICONE
+    // ----------------------------------------
+    "lucide-react": "^0.344.0", // Icone vettoriali leggerissime
+
+    // ----------------------------------------
+    // UTILITY CSS
+    // ----------------------------------------
+    "class-variance-authority": "^0.7.0", // Gestione varianti componenti (CVA)
+    "clsx": "^2.1.0",                      // Unioni classi condizionali
+    "tailwind-merge": "^2.2.0"            // Merge intelligente classi Tailwind
+  },
+
+  // ========================================
+  // DIPENDENZE SVILUPPO
+  // ========================================
+  // Pacchetti necessari solo in fase di sviluppo
+  "devDependencies": {
+    // ----------------------------------------
+    // TYPESCRIPT
+    // ----------------------------------------
+    "@types/node": "^20.11.0",     // Tipi Node.js
+    "@types/react": "^18.3.0",     // Tipi React
+    "@types/react-dom": "^18.3.0", // Tipi React DOM
+    "typescript": "^5.3.3",        // Compilatore TypeScript
+
+    // ----------------------------------------
+    // CSS & STYLING
+    // ----------------------------------------
+    "autoprefixer": "^10.4.17", // Vendor prefixes automatici
+    "postcss": "^8.4.33",       // Trasformazione CSS
+    "tailwindcss": "^3.4.1",    // Framework CSS utility-first
+
+    // ----------------------------------------
+    // LINTING
+    // ----------------------------------------
+    "eslint": "^8.56.0",           // Linter JavaScript/TypeScript
+    "eslint-config-next": "^15.0.0" // Configurazione ESLint per Next.js
+  }
+}

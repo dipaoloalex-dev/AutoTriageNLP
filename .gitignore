@@ -1,34 +1,84 @@
-# Cache e compilati Python
+# ========================================
+# CACHE E FILE COMPILATI PYTHON
+# ========================================
+# Cartella __pycache__: contiene bytecode Python compilato automaticamente
+# Viene rigenerata ad ogni esecuzione, non ha senso versionarla
 __pycache__/
+
+# File compilati Python (.pyc, .pyo, .pyd)
+# Sono generati dall'interprete Python per ottimizzare le esecuzioni successive
 *.py[cod]
+
+# File di classe compilati (formato alternativo)
 *$py.class
 
-# Ambienti virtuali
+# ========================================
+# AMBIENTI VIRTUALI PYTHON
+# ========================================
+# venv/, env/, .venv/: contengono l'ambiente virtuale Python
+# Includono dipendenze specifiche del sistema operativo e dell'utente
+# Ogni sviluppatore deve ricrearne uno proprio con: python -m venv .venv
 venv/
 env/
 .venv/
 
-# IDE e OS
+# ========================================
+# CONFIGURAZIONI IDE E FILE DI SISTEMA
+# ========================================
+# .vscode/: configurazioni personalizzate di Visual Studio Code
+# Include settings, estensioni raccomandate, debug configs specifici del dev
 .vscode/
+
+# .idea/: configurazioni di PyCharm / IntelliJ IDEA
+# Include workspace settings, run configurations, preferenze utente
 .idea/
+
+# .DS_Store: file creato automaticamente da macOS su ogni cartella visitata
+# Contiene metadati visivi (posizione icone, dimensioni finestre)
 .DS_Store
 
-# Modelli addestrati (pesanti, li rigenero con lo script)
+# ========================================
+# MODELLI ML ADDESTRATI
+# ========================================
+# File .pkl: modelli serializzati (pickle) pesanti e binari
+# Generalmente superano i 100MB e possono essere rigenerati eseguendo gli script di training
+# Non versionarli per evitare di gonfiare inutilmente il repository
 models/*.pkl
 
-# Report e metriche generati in automatico
+# ========================================
+# REPORT E METRICHE GENERATE
+# ========================================
+# metrics_summary.json: riepilogo metriche di valutazione del modello
+# Viene rigenerato ogni volta che si eseguono gli script di test/valutazione
 metrics_summary.json
+
+# metrics_report_unified.txt: report testuale dettagliato delle performance
+# Contiene statistiche che cambiano ad ogni training o valutazione
 metrics_report_unified.txt
 
-# Immagini generate dagli script (grafici, matrici, ecc.)
-assets/img/png/*.png
+# ========================================
+# IMMAGINI GENERATE DAGLI SCRIPT
+# ========================================
+# img/png/*.png: grafici, matrici di confusione, plot generati automaticamente
+# Sono artefatti di output, non codice sorgente
+# Esclusione con wildcard per ignorare TUTTE le PNG in quella cartella
+img/png/*.png
 
-# Eccezione: voglio che il logo venga pushato su GitHub
-!assets/img/png/logo.png
-
-# Variabili d'ambiente / file locali
+# ========================================
+# VARIABILI D'AMBIENTE E FILE LOCALI
+# ========================================
+# .env: contiene variabili d'ambiente sensibili (API key, password, config locali)
+# MAI versionare per motivi di sicurezza
+# Ogni ambiente ha il proprio .env (es: .env.local per sviluppo)
 .env
 
-# Dataset generati
+# ========================================
+# DATASET GENERATI
+# ========================================
+# synthetic_tickets.csv: dataset sintetico generato automaticamente per testing
+# Può essere rigenerato eseguendo lo script di data augmentation
 data/synthetic_tickets.csv
+
+# tickets_it_augmented.csv: dataset con augmentations applicate
+# File derivato, non il sorgente originale
 data/tickets_it_augmented.csv

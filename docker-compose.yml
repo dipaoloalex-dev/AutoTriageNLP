@@ -1,0 +1,94 @@
+# Versione della sintassi Docker Compose utilizzata
+# La 3.8 supporta la maggior parte delle funzionalità moderne ed è compatibile con Docker Engine
+version: '3.8'
+
+# Definizione dei servizi (container) che compongono l'applicazione
+services:
+  # ===========================
+  # SERVIZIO FRONTEND (Next.js)
+  # ===========================
+  frontend:
+    # Percorso della cartella contenente il Dockerfile per la costruzione dell'immagine
+    build: ./frontend
+
+    # Nome fisso assegnato al container per facilitarne l'individuazione (docker ps)
+    container_name: autotriage-frontend
+
+    # Mapping delle porte: host:container
+    # L'utente accede al frontend su http://localhost:3000
+    ports:
+      - "3000:3000"
+
+    # Variabili d'ambiente iniettate nel container al runtime
+    environment:
+      # URL del backend accessibile dal frontend (usato nelle chiamate API)
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      # Imposta Next.js in modalità produzione (ottimizzazioni attive)
+      - NODE_ENV=production
+
+    # Dipendenze tra servizi: il backend deve partire prima del frontend
+    depends_on:
+      - backend
+
+    # Rete a cui il container viene connesso per comunicare con altri servizi
+    networks:
+      - autotriage-network
+
+  # ===========================
+  # SERVIZIO BACKEND (FastAPI)
+  # ===========================
+  backend:
+    # Percorso della cartella contenente il Dockerfile del backend
+    build: ./backend
+
+    # Nome fisso del container backend
+    container_name: autotriage-backend
+
+    # Espone la porta 8000 per l'API REST
+    # Accessibile esternamente su http://localhost:8000
+    ports:
+      - "8000:8000"
+
+    # Variabili d'ambiente specifiche del backend
+    environment:
+      # Percorso interno al container dove si trova il modello ML serializzato
+      - MODEL_PATH=/app/models/unified_model.pkl
+      # Origin autorizzate per il CORS (protezione Cross-Origin)
+      # Consentiti: localhost e il nome del container frontend (per comunicazione interna)
+      - ALLOWED_ORIGINS=["http://localhost:3000","http://frontend:3000"]
+
+    # Montaggio di volumi (directory dall'host nel container)
+    volumes:
+      # Monta la cartella locale models in /app/models (read-only)
+      # Il container può leggere i modelli ma non modificarli
+      - ./models:/app/models:ro
+      # Monta la cartella assets in /app/assets (read-only)
+      # Contiene risorse statiche come template, immagini, ecc.
+      - ./assets:/app/assets:ro
+      # Monta la cartella data in /app/data (read-only)
+      # Contiene eventuali dataset di riferimento
+      - ./data:/app/data:ro
+
+    # Rete per la comunicazione con il frontend
+    networks:
+      - autotriage-network
+
+    # Controllo periodico dello stato di salute del container
+    healthcheck:
+      # Comando eseguito per verificare che il backend risponda
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      # Intervallo tra due controlli consecutivi
+      interval: 30s
+      # Tempo massimo di attesa per la risposta prima di considerare il test fallito
+      timeout: 10s
+      # Numero di fallimenti consecutivi prima di segnare il container come "unhealthy"
+      retries: 3
+
+# ===========================
+# DEFINIZIONE DELLE RETI
+# ===========================
+networks:
+  autotriage-network:
+    # Driver di tipo bridge: crea una rete privata interna
+    # I container possono comunicarsi usando i nomi dei servizi (frontend, backend)
+    driver: bridge

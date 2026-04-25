@@ -1,0 +1,89 @@
+# ========================================
+# GITIGNORE FRONTEND NEXT.JS
+# ========================================
+#
+# File e directory da ignorare in Git per il frontend.
+#
+# Riferimento: https://help.github.com/articles/ignoring-files/
+
+# ========================================
+# DIPENDENZE
+# ========================================
+# Cartella node_modules: contiene tutte le dipendenze installate
+# Viene rigenerata eseguendo `npm install`
+# Può contenere migliaia di file e pesare centinaia di MB
+/node_modules
+
+# PnP (Plug'n'Play): sistema alternativo di gestione dipendenze
+/.pnp
+.pnp.js
+
+# ========================================
+# TESTING
+# ========================================
+# /coverage: report coverage dei test generato da Jest o simili
+/coverage
+
+# ========================================
+# NEXT.JS BUILD OUTPUT
+# ========================================
+# /.next: cartella di build di Next.js
+# Contiene pagine ottimizzate, server, e asset generati
+# Viene rigenerata ogni volta che si esegue `next build` o `next dev`
+/.next/
+
+# /out: output per export statico (next export)
+# Contiene HTML/CSS/JS statici per hosting senza Node.js
+/out/
+
+# ========================================
+# PRODUCTION BUILD
+# ========================================
+# /build: cartella build generica (alcuni tool la usano)
+/build
+
+# ========================================
+# FILE DI SISTEMA
+# ========================================
+# .DS_Store: file creato da macOS su ogni cartella visitata
+# Contiene metadati del Finder (posizione icone, vista, ecc.)
+.DS_Store
+
+# *.pem: certificati e chiavi private (NON devono mai essere commitate)
+*.pem
+
+# ========================================
+# LOG DI DEBUG
+# ========================================
+# npm-debug.log*: log degli errori di npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================================
+# VARIABILI D'AMBIENTE LOCALI
+# ========================================
+# .env*: file di configurazione locale
+# Contengono API key, URL backend, configurazione segreta
+# MAI versionare in Git per sicurezza
+.env*.local
+.env
+
+# ========================================
+# VERCEL (PLATFORM)
+# ========================================
+# .vercel: configurazione specifica per deployment Vercel
+# Contiene alias e settings del progetto su Vercel
+.vercel
+
+# ========================================
+# TYPESCRIPT
+# ========================================
+# *.tsbuildinfo: file di cache incrementale di TypeScript
+# Viene rigenerato ad ogni compilazione
+*.tsbuildinfo
+
+# next-env.d.ts: file di tipi generato automaticamente da Next.js
+# Contiene i tipi per le funzioni specifiche di Next.js
+# Non deve essere modificato manualmente
+next-env.d.ts
