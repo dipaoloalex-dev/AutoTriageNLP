@@ -1,94 +1,134 @@
-# Versione della sintassi Docker Compose utilizzata
-# La 3.8 supporta la maggior parte delle funzionalità moderne ed è compatibile con Docker Engine
+# ========================================
+# Docker Compose - Orchestrazione Container
+# ========================================
+#
+# File di configurazione per avviare l'intera stack applicativa:
+# - Frontend (Next.js) : porta 3000
+# - Backend (FastAPI)  : porta 8000
+#
+# Comandi principali:
+# - docker-compose up -d          : Avvia container in background
+# - docker-compose down            : Ferma e rimuovi container
+# - docker-compose logs -f         : Visualizza log in tempo reale
+# - docker-compose build --no-cache : Ricostruisce immagini senza cache
+#
+# Versione 3.8: Supporta funzionalità moderne ed è compatibile con Docker Engine 19.03+
+# ========================================
+
 version: '3.8'
 
-# Definizione dei servizi (container) che compongono l'applicazione
+
+# ========================================
+# SERVIZI (CONTAINER)
+# ========================================
 services:
-  # ===========================
-  # SERVIZIO FRONTEND (Next.js)
-  # ===========================
+
+  # ----------------------------------------
+  # FRONTEND - Next.js Application
+  # ----------------------------------------
   frontend:
-    # Percorso della cartella contenente il Dockerfile per la costruzione dell'immagine
+    # Context di build per il Dockerfile
     build: ./frontend
 
-    # Nome fisso assegnato al container per facilitarne l'individuazione (docker ps)
+    # Nome fisso container per facile identificazione
     container_name: autotriage-frontend
 
-    # Mapping delle porte: host:container
-    # L'utente accede al frontend su http://localhost:3000
+    # Mapping porte: Host → Container
+    # Accessibile su: http://localhost:3000
     ports:
       - "3000:3000"
 
-    # Variabili d'ambiente iniettate nel container al runtime
+    # Variabili ambiente Runtime
     environment:
-      # URL del backend accessibile dal frontend (usato nelle chiamate API)
+      # URL backend per chiamate API dal browser
       - NEXT_PUBLIC_API_URL=http://localhost:8000
-      # Imposta Next.js in modalità produzione (ottimizzazioni attive)
+      # Modalità produzione (ottimizzazioni Next.js attive)
       - NODE_ENV=production
 
-    # Dipendenze tra servizi: il backend deve partire prima del frontend
+    # Dipendenza: Backend deve partire prima
     depends_on:
       - backend
 
-    # Rete a cui il container viene connesso per comunicare con altri servizi
+    # Rete di comunicazione
     networks:
       - autotriage-network
 
-  # ===========================
-  # SERVIZIO BACKEND (FastAPI)
-  # ===========================
+
+  # ----------------------------------------
+  # BACKEND - FastAPI Application
+  # ----------------------------------------
   backend:
-    # Percorso della cartella contenente il Dockerfile del backend
+    # Context di build per il Dockerfile
     build: ./backend
 
-    # Nome fisso del container backend
+    # Nome fisso container
     container_name: autotriage-backend
 
-    # Espone la porta 8000 per l'API REST
-    # Accessibile esternamente su http://localhost:8000
+    # Mapping porte: Host → Container
+    # API accessibile su: http://localhost:8000
+    # Docs Swagger su: http://localhost:8000/api/v1/docs
     ports:
       - "8000:8000"
 
-    # Variabili d'ambiente specifiche del backend
+    # Variabili ambiente Runtime
     environment:
-      # Percorso interno al container dove si trova il modello ML serializzato
+      # Percorso interno al container del modello ML (.pkl)
       - MODEL_PATH=/app/models/unified_model.pkl
-      # Origin autorizzate per il CORS (protezione Cross-Origin)
-      # Consentiti: localhost e il nome del container frontend (per comunicazione interna)
+
+      # Origini autorizzate per CORS (Cross-Origin Resource Sharing)
+      # - http://localhost:3000: Accesso dal browser locale
+      # - http://frontend:3000: Accesso interno container-to-container
       - ALLOWED_ORIGINS=["http://localhost:3000","http://frontend:3000"]
 
-    # Montaggio di volumi (directory dall'host nel container)
+    # ----------------------------------------
+    # VOLUMI (Host → Container)
+    # ----------------------------------------
+    # Montaggio directory read-only per sicurezza:
+    # - Il container può LEGGERE ma non MODIFICARE i file
+    # - Se un file manca, il container non parte
     volumes:
-      # Monta la cartella locale models in /app/models (read-only)
-      # Il container può leggere i modelli ma non modificarli
+      # Modelli ML addestrati (.pkl)
       - ./models:/app/models:ro
-      # Monta la cartella assets in /app/assets (read-only)
-      # Contiene risorse statiche come template, immagini, ecc.
+
+      # Risorse statiche (template, documentazione)
       - ./assets:/app/assets:ro
-      # Monta la cartella data in /app/data (read-only)
-      # Contiene eventuali dataset di riferimento
+
+      # Dataset di riferimento per training/testing
       - ./data:/app/data:ro
 
-    # Rete per la comunicazione con il frontend
+    # Rete di comunicazione
     networks:
       - autotriage-network
 
-    # Controllo periodico dello stato di salute del container
+    # ----------------------------------------
+    # HEALTH CHECK
+    # ----------------------------------------
+    # Monitoraggio stato di salute del container
+    # Docker restarta automaticamente se unhealthy
     healthcheck:
-      # Comando eseguito per verificare che il backend risponda
+      # Comando curl per testare endpoint health
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
-      # Intervallo tra due controlli consecutivi
+
+      # Intervallo tra controlli (30 secondi)
       interval: 30s
-      # Tempo massimo di attesa per la risposta prima di considerare il test fallito
+
+      # Timeout attesa risposta (10 secondi)
       timeout: 10s
-      # Numero di fallimenti consecutivi prima di segnare il container come "unhealthy"
+
+      # Tentativi prima di segnare unhealthy (3 fallimenti = 90 secondi)
       retries: 3
 
-# ===========================
-# DEFINIZIONE DELLE RETI
-# ===========================
+      # Periodo di grazia all'avvio (non fallire subito)
+      start_period: 40s
+
+
+# ========================================
+# RETI DI COMUNICAZIONE
+# ========================================
 networks:
   autotriage-network:
-    # Driver di tipo bridge: crea una rete privata interna
-    # I container possono comunicarsi usando i nomi dei servizi (frontend, backend)
+    # Driver Bridge: Rete privata interna
+    # I container possono comunicarsi usando NOMI SERVIZI come hostname:
+    # - Frontend chiama: http://backend:8000
+    # - Backend chiama: http://frontend:3000
     driver: bridge
