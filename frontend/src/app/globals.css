@@ -13,55 +13,55 @@
  * Ispirato a: https://ui.aceternity.com/
  */
 
-// ========================================
-// DIRECTIVE TAILWIND
-// ========================================
-// Importa le direttive di Tailwind CSS
+/* ======================================== */
+/* DIRECTIVE TAILWIND */
+/* ======================================== */
+/* Importa le direttive di Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-// ========================================
-// LAYER BASE - VARIABILI CSS
-// ========================================
+/* ======================================== */
+/* LAYER BASE - VARIABILI CSS */
+/* ======================================== */
 @layer base {
   :root {
-    // ----------------------------------------
-    // COLORI BASE
-    // ----------------------------------------
-    // Formato HSL per facilità manipolazione con CSS custom properties
-    --background: 222 47% 11%;      // Sfondo scuro principale
-    --foreground: 0 0% 100%;         // Testo bianco
+/* ---------------------------------------- */
+/* COLORI BASE */
+/* ---------------------------------------- */
+/* Formato HSL per facilità manipolazione con CSS custom properties */
+    --background: 222 47% 11%;      /* Sfondo scuro principale */
+    --foreground: 0 0% 100%;         /* Testo bianco */
 
-    --card: 222 47% 13%;             // Sfondo card
-    --card-foreground: 0 0% 100%;    // Testo card
+    --card: 222 47% 13%;             /* Sfondo card */
+    --card-foreground: 0 0% 100%;    /* Testo card */
 
-    --primary: 217 91% 60%;          // Blu principale (CTA)
-    --primary-foreground: 0 0% 100%; // Testo su primary
+    --primary: 217 91% 60%;          /* Blu principale (CTA) */
+    --primary-foreground: 0 0% 100%; /* Testo su primary */
 
-    --secondary: 217 33% 17%;        // Grigio scuro
+    --secondary: 217 33% 17%;        /* Grigio scuro */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 217 33% 17%;            // Elementi smorzati
-    --muted-foreground: 0 0% 63.9%;  // Testo smorzato
+    --muted: 217 33% 17%;            /* Elementi smorzati */
+    --muted-foreground: 0 0% 63.9%;  /* Testo smorzato */
 
-    --accent: 217 33% 17%;           // Accenti hover
+    --accent: 217 33% 17%;           /* Accenti hover */
     --accent-foreground: 0 0% 100%;
 
-    --radius: 0.75rem;               // Border radius globale
+    --radius: 0.75rem;               /* Border radius globale */
 
-    // ----------------------------------------
-    // COLORI PRIORITÀ
-    // ----------------------------------------
-    --priority-alta: 0 84% 60%;      // Rosso
-    --priority-media: 36 92% 65%;    // Arancione
-    --priority-bassa: 122 47% 55%;   // Verde
+/* ---------------------------------------- */
+/* COLORI PRIORITÀ */
+/* ---------------------------------------- */
+    --priority-alta: 0 84% 60%;      /* Rosso */
+    --priority-media: 36 92% 65%;    /* Arancione */
+    --priority-bassa: 122 47% 55%;   /* Verde */
   }
 }
 
-// ========================================
-// LAYER BASE - STILI GLOBALI
-// ========================================
+/* ======================================== */
+/* LAYER BASE - STILI GLOBALI */
+/* ======================================== */
 @layer base {
   body {
     @apply bg-background text-foreground;
@@ -70,54 +70,54 @@
     min-height: 100vh;
   }
 
-  // ----------------------------------------
-  // SCROLLBAR PERSONALIZZATA
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* SCROLLBAR PERSONALIZZATA */
+/* ---------------------------------------- */
   ::-webkit-scrollbar {
-    width: 8px;  // Larghezza scrollbar
+    width: 8px;  /* Larghezza scrollbar */
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);  // Sfondo track
+    background: rgba(255, 255, 255, 0.05);  /* Sfondo track */
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);   // Thumb (parte mobile)
+    background: rgba(255, 255, 255, 0.2);   /* Thumb (parte mobile) */
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);   // Hover thumb
+    background: rgba(255, 255, 255, 0.3);   /* Hover thumb */
   }
 }
 
-// ========================================
-// LAYER COMPONENTS - CLASSI CUSTOM
-// ========================================
+/* ======================================== */
+/* LAYER COMPONENTS - CLASSI CUSTOM */
+/* ======================================== */
 @layer components {
-  // ----------------------------------------
-  // GLASS CARD
-  // ----------------------------------------
-  // Componente base con effetto vetro (glassmorphism)
+/* ---------------------------------------- */
+/* GLASS CARD */
+/* ---------------------------------------- */
+/* Componente base con effetto vetro (glassmorphism) */
   .glass-card {
-    background: rgba(20, 25, 45, 0.7);           // Sfondo semitrasparente
-    backdrop-filter: blur(20px);                  // Effetto sfocatura sfondo
-    -webkit-backdrop-filter: blur(20px);          // Safari support
-    border: 1px solid rgba(255, 255, 255, 0.08); // Bordo sottile
+    background: rgba(20, 25, 45, 0.7);           /* Sfondo semitrasparente */
+    backdrop-filter: blur(20px);                  /* Effetto sfocatura sfondo */
+    -webkit-backdrop-filter: blur(20px);          /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Bordo sottile */
     border-radius: 1rem;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     transition: all 0.3s ease;
   }
 
   .glass-card:hover {
-    border-color: rgba(77, 166, 255, 0.3);       // Bordo blu al hover
-    transform: translateY(-4px);                 // Leggero sollevamento
-    box-shadow: 0 12px 40px 0 rgba(77, 166, 255, 0.15);  // Ombra blu
+    border-color: rgba(77, 166, 255, 0.3);       /* Bordo blu al hover */
+    transform: translateY(-4px);                 /* Leggero sollevamento */
+    box-shadow: 0 12px 40px 0 rgba(77, 166, 255, 0.15);  /* Ombra blu */
   }
 
-  // ----------------------------------------
-  // GLASS INPUT
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* GLASS INPUT */
+/* ---------------------------------------- */
   .glass-input {
     background: rgba(20, 25, 45, 0.5);
     backdrop-filter: blur(10px);
@@ -128,17 +128,17 @@
 
   .glass-input:focus {
     outline: none;
-    border-color: rgba(77, 166, 255, 0.5);       // Bordo blu focus
-    box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.1); // Outer glow
+    border-color: rgba(77, 166, 255, 0.5);       /* Bordo blu focus */
+    box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.1); /* Outer glow */
   }
 
   .glass-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);            // Placeholder grigio
+    color: rgba(255, 255, 255, 0.4);            /* Placeholder grigio */
   }
 
-  // ----------------------------------------
-  // GLASS BUTTON
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* GLASS BUTTON */
+/* ---------------------------------------- */
   .glass-button {
     background: rgba(77, 166, 255, 0.2);
     backdrop-filter: blur(10px);
@@ -150,20 +150,20 @@
   .glass-button:hover {
     background: rgba(77, 166, 255, 0.3);
     border-color: rgba(77, 166, 255, 0.5);
-    transform: translateY(-2px);                  // Leggero sollevamento
-    box-shadow: 0 8px 20px rgba(77, 166, 255, 0.3);  // Ombra blu
+    transform: translateY(-2px);                  /* Leggero sollevamento */
+    box-shadow: 0 8px 20px rgba(77, 166, 255, 0.3);  /* Ombra blu */
   }
 
   .glass-button:active {
-    transform: translateY(0);                     // Torna giù quando premuto
+    transform: translateY(0);                     /* Torna giù quando premuto */
   }
 
-  // ----------------------------------------
-  // BADGE PRIORITÀ
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* BADGE PRIORITÀ */
+/* ---------------------------------------- */
   .badge-alta {
     @apply bg-red-500/20 text-red-400 border-red-500/30;
-    animation: pulse-glow 2s infinite;           // Animazione pulsante
+    animation: pulse-glow 2s infinite;           /* Animazione pulsante */
   }
 
   .badge-media {
@@ -174,9 +174,9 @@
     @apply bg-green-500/20 text-green-400 border-green-500/30;
   }
 
-  // ----------------------------------------
-  // GLOW EFFECTS
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* GLOW EFFECTS */
+/* ---------------------------------------- */
   .glow-blue {
     box-shadow: 0 0 20px rgba(77, 166, 255, 0.3);
   }
@@ -189,30 +189,30 @@
     box-shadow: 0 0 20px rgba(77, 255, 77, 0.3);
   }
 
-  // ----------------------------------------
-  // TEXT GRADIENT
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* TEXT GRADIENT */
+/* ---------------------------------------- */
   .text-gradient {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, #4da6ff 0%, #80d4ff 100%);
   }
 
-  // ----------------------------------------
-  // CONTAINER CUSTOM
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* CONTAINER CUSTOM */
+/* ---------------------------------------- */
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  // ----------------------------------------
-  // ANIMAZIONI CUSTOM
-  // ----------------------------------------
+/* ---------------------------------------- */
+/* ANIMAZIONI CUSTOM */
+/* ---------------------------------------- */
   @keyframes float {
     0%, 100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px);               // Galleggiamento su-giù
+      transform: translateY(-10px);               /* Galleggiamento su-giù */
     }
   }
 
@@ -221,14 +221,14 @@
   }
 }
 
-// ========================================
-// LAYER UTILITIES - UTILITIES CUSTOM
-// ========================================
+/* ======================================== */
+/* LAYER UTILITIES - UTILITIES CUSTOM */
+/* ======================================== */
 @layer utilities {
-  // ----------------------------------------
-  // TEXT SHADOW
-  // ----------------------------------------
-  // Ombreggiatura testo per migliore leggibilità su sfondi complessi
+/* ---------------------------------------- */
+/* TEXT SHADOW */
+/* ---------------------------------------- */
+/* Ombreggiatura testo per migliore leggibilità su sfondi complessi */
   .text-shadow {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
@@ -238,16 +238,15 @@
   }
 }
 
-// ========================================
-// NASCONDI INDICATORI DEV NEXT.JS
-// ========================================
-// Regole CSS aggressive per nascondere TUTTI gli indicatori
-// di sviluppo che Next.js inietta durante il dev mode.
-//
-// Nota: Queste regole sono un fallback ulteriore al
-// DevIndicatorRemover.tsx che fa lo stesso con JavaScript.
+/* ======================================== */
+/* NASCONDI INDICATORI DEV NEXT.JS */
+/* ======================================== */
+/* Regole CSS aggressive per nascondere TUTTI gli indicatori */
+/* di sviluppo che Next.js inietta durante il dev mode. */
+/* Nota: Queste regole sono un fallback ulteriore al */
+/* DevIndicatorRemover.tsx che fa lo stesso con JavaScript. */
 
-// Nascondi per data attributes
+/* Nascondi per data attributes */
 span[data-nextjs-route-indicator],
 div[data-nextjs-route-indicator],
 div[id*="nextjs"],
@@ -258,18 +257,18 @@ div[aria-label*="Route indicator"] {
   display: none !important;
 }
 
-// Nascondi overlay di sviluppo
+/* Nascondi overlay di sviluppo */
 iframe[src*="next"],
 div[class*="webpack"] {
   display: none !important;
 }
 
-// Nascondi per posizione fixed + bottom + right (pattern indicatore)
+/* Nascondi per posizione fixed + bottom + right (pattern indicatore) */
 div[style*="position"][style*="fixed"][style*="bottom"][style*="right"] {
   display: none !important;
 }
 
-// Nascondi per ID specifici Next.js
+/* Nascondi per ID specifici Next.js */
 #__next-build-watcher,
 #__next-prerender-indicator,
 .__nextjs-toast-wrapper,
@@ -277,7 +276,7 @@ div[style*="position"][style*="fixed"][style*="bottom"][style*="right"] {
   display: none !important;
 }
 
-// Nascondi per z-index elevato (tipico degli overlay)
+/* Nascondi per z-index elevato (tipico degli overlay) */
 div[style*="z-index: 9999"],
 div[style*="z-index: 99999"],
 div[style*="z-index: 999999"],
@@ -286,14 +285,14 @@ div[style*="z-index:2147483647"] {
   display: none !important;
 }
 
-// Nascondi ultimi figli di body (spesso indicatori)
+/* Nascondi ultimi figli di body (spesso indicatori) */
 body > div:last-child,
 body > div[style*="position: fixed"],
 body > button[style*="position: fixed"] {
   display: none !important;
 }
 
-// Nascondi per combinazione position + bottom + right (pattern indicatore)
+/* Nascondi per combinazione position + bottom + right (pattern indicatore) */
 [style*="bottom: 12px"][style*="right: 12px"],
 [style*="bottom: 16px"][style*="right: 16px"],
 [style*="bottom: 20px"][style*="right: 20px"],
@@ -303,36 +302,36 @@ body > button[style*="position: fixed"] {
   display: none !important;
 }
 
-// Nascondi SVG con viewBox tipici Next.js
+/* Nascondi SVG con viewBox tipici Next.js */
 svg[viewBox*="0 0 70 70"],
 svg[width="20"][height="20"][style*="position: fixed"],
 svg[width="16"][height="16"][style*="position: fixed"] {
   display: none !important;
 }
 
-// Nascondi elementi position:fixed con inset (overlay)
+/* Nascondi elementi position:fixed con inset (overlay) */
 html body div[style*="position: fixed"][style*="inset"] {
   display: none !important;
 }
 
-// Nascondi portal containers Next.js
+/* Nascondi portal containers Next.js */
 #__next_portal__,
 div[id*="__next"] {
   display: none !important;
 }
 
-// Nascondi per combinazione z-index + position: fixed
+/* Nascondi per combinazione z-index + position: fixed */
 [style*="z-index: 2147483647"][style*="position: fixed"] {
   display: none !important;
 }
 
-// Nascondi tutti i button position:fixed in basso
+/* Nascondi tutti i button position:fixed in basso */
 button[style*="position: fixed"][style*="bottom"],
 button[style*="position:fixed"][style*="bottom"] {
   display: none !important;
 }
 
-// Nascondi tutti i div position:fixed con bottom o right
+/* Nascondi tutti i div position:fixed con bottom o right */
 div[style*="position: fixed"][style*="bottom"],
 div[style*="position:fixed"][style*="bottom"],
 div[style*="position: fixed"][style*="right"],
