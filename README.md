@@ -56,6 +56,25 @@ docker-compose up --build
 - Python 3.10+
 - Node.js 20+
 
+#### Passo 0: Addestramento Modello ML (da fare solo la prima volta)
+
+**Dalla ROOT del progetto** (non entrare in backend/frontend):
+
+```bash
+# Verifica di avere i dataset nella cartella data/
+ls -la data/kaggle_tickets_it.csv
+
+# Installa dipendenze Python per il training
+pip install pandas scikit-learn numpy matplotlib seaborn joblib
+
+# Addestra il modello (richiede circa 5-10 minuti)
+python src/train_unified_model.py
+```
+
+Questo creerà il file `models/unified_model.pkl` necessario per il backend.
+
+---
+
 #### Passo 1: Backend (FastAPI)
 
 ```bash
