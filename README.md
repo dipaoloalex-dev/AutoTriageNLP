@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="img/png/logo.png" alt="AutoTriage NLP Logo" width="200"/>
-
 # AutoTriage NLP
 
 **Sistema intelligente di classificazione e prioritarizzazione ticket per l'assistenza aziendale**
@@ -60,25 +58,26 @@ docker-compose up --build
 
 #### Passo 1: Backend (FastAPI)
 
-Apri il terminale nella cartella `backend/`:
-
 ```bash
-# Crea ambiente virtuale
+# 1. Entra nella cartella backend
+cd backend
+
+# 2. Crea ambiente virtuale
 python3 -m venv venv
 
-# Attiva ambiente
+# 3. Attiva ambiente
 # Su Mac/Linux:
 source venv/bin/activate
 # Su Windows:
 venv\Scripts\activate
 
-# Installa dipendenze
+# 4. Installa dipendenze
 pip install -r requirements.txt
 
-# Copia configura ambiente
+# 5. Copia configurazione ambiente
 cp .env.example .env
 
-# Avvia backend
+# 6. Avvia backend
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -86,16 +85,19 @@ Backend sarà su: **http://localhost:8000**
 
 #### Passo 2: Frontend (Next.js)
 
-Apri un **NUOVO** terminale nella cartella `frontend/`:
+**Apri un NUOVO terminale** (lascia il backend attivo nell'altro):
 
 ```bash
-# Installa dipendenze
+# 1. Entra nella cartella frontend
+cd frontend
+
+# 2. Installa dipendenze
 npm install
 
-# Copia configura ambiente
+# 3. Copia configurazione ambiente
 cp .env.local.example .env.local
 
-# Avvia frontend
+# 4. Avvia frontend
 npm run dev
 ```
 
@@ -107,36 +109,57 @@ Frontend sarà su: **http://localhost:3000**
 
 ### Backend non parte?
 ```bash
-# Verifica che il modello esista
-ls -la ../models/unified_model.pkl
+# 1. Verifica di essere nella cartella backend
+cd backend
+pwd  # Dovresti vedere .../AutoTriageNLP/backend
 
-# Se non esiste, devi prima addestrare il modello:
-cd ..
+# 2. Verifica che l'ambiente virtuale sia attivo
+which python  # Dovresti vedere .../backend/venv/bin/python
+
+# 3. Verifica che il modello esista
+ls -la models/unified_model.pkl
+
+# 4. Se non esiste, devi prima addestrare il modello:
+cd ..  # Torna alla root
 python src/train_unified_model.py
 ```
 
 ### Frontend da errori di connessione?
 ```bash
-# Verifica che .env.local contenga:
-NEXT_PUBLIC_API_URL=http://localhost:8000
-
-# Verifica che il backend sia in esecuzione
+# 1. Verifica che il backend sia in esecuzione
 curl http://localhost:8000/api/v1/health
+
+# 2. Verifica il file .env.local del frontend:
+cat frontend/.env.local
+# Dovresti vedere: NEXT_PUBLIC_API_URL=http://localhost:8000
+
+# 3. Se il file non esiste, crealo:
+cd frontend
+cp .env.local.example .env.local
 ```
 
 ### Porte già in uso?
 ```bash
-# Cambia porte backend: modifica backend/.env
-# Cambia porte frontend: modifica frontend/package.json scripts
+# Su Mac/Linux, trova cosa usa le porte:
+lsof -i :8000  # Backend
+lsof -i :3000  # Frontend
+
+# Chiudi i processi se necessario
 ```
 
 ### Docker non funziona?
 ```bash
-# Pulisci cache Docker
+# 1. Verifica che Docker Desktop sia in esecuzione
+docker --version
+
+# 2. Pulisci cache Docker
 docker system prune -a
 
-# Rebuild senza cache
+# 3. Rebuild senza cache
 docker-compose build --no-cache
+
+# 4. Riavvia i container
+docker-compose up -d
 ```
 
 ---
