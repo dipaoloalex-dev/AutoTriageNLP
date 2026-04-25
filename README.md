@@ -71,13 +71,19 @@ source venv/bin/activate
 # Su Windows:
 venv\Scripts\activate
 
-# 4. Installa dipendenze
-pip install -r requirements.txt
+# 4. Aggiorna pip (consigliato)
+pip install --upgrade pip
 
-# 5. Copia configurazione ambiente
+# 5. Installa dipendenze con timeout esteso (per connessioni lente)
+pip install -r requirements.txt --timeout 300 --retries 5
+
+# Se hai ancora problemi di timeout, prova anche:
+# pip install -r requirements.txt --default-timeout=1000
+
+# 6. Copia configurazione ambiente
 cp .env.example .env
 
-# 6. Avvia backend
+# 7. Avvia backend
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -145,6 +151,22 @@ lsof -i :8000  # Backend
 lsof -i :3000  # Frontend
 
 # Chiudi i processi se necessario
+```
+
+### Problemi di download durante pip install?
+```bash
+# Se pip va in timeout durante l'installazione:
+pip install -r requirements.txt --timeout 300 --retries 5
+
+# Oppure con timeout ancora più lungo:
+pip install -r requirements.txt --default-timeout=1000
+
+# Se il problema persiste, installa i pacchetti principali singolarmente:
+pip install fastapi uvicorn[standard] pandas scikit-learn numpy lime --timeout 300
+pip install pydantic pydantic-settings python-dotenv joblib --timeout 300
+
+# Verifica di avere una connessione internet stabile
+ping files.pythonhosted.org
 ```
 
 ### Docker non funziona?
