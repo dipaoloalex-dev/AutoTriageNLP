@@ -26,7 +26,7 @@ import json
 from typing import List, Dict, Any
 
 # Aggiungo la root al path per poter importare la classe UnifiedModel
-sys.path.append(os.path.dirname(__file__))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from unified_model import UnifiedModel
 
 # ========================================
