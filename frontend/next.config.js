@@ -11,6 +11,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ----------------------------------------
+  // OUTPUT STANDALONE
+  // ----------------------------------------
+  // Abilita l'output standalone per la build in Docker
+  // Genera la cartella .next/standalone con tutto il necessario per l'esecuzione
+  // Riduce la dimensione dell'immagine Docker includendo solo le dipendenze necessarie
+  output: 'standalone',
+
+  // ----------------------------------------
   // REACT STRICT MODE
   // ----------------------------------------
   // Abilita controlli aggiuntivi per identificare problemi potenziali
