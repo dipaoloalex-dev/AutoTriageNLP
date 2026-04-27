@@ -62,10 +62,13 @@ docker-compose up --build
 
 ```bash
 # Verifica di avere i dataset nella cartella data/
-ls -la data/kaggle_tickets_it.csv
+ls data/kaggle_tickets_it.csv
 
 # Installa dipendenze Python per il training
-pip install pandas scikit-learn numpy matplotlib seaborn joblib
+pip install pandas scikit-learn numpy matplotlib seaborn joblib deep_translator
+
+# Prepara il dataset tradotto (richiede alcuni minuti)
+python src/prepare_data.py
 
 # Addestra il modello (richiede circa 5-10 minuti)
 python src/train_unified_model.py
@@ -91,7 +94,7 @@ source venv/bin/activate
 venv\Scripts\activate
 
 # 4. Aggiorna pip (consigliato)
-pip install --upgrade pip
+python -m pip install --upgrade pip
 
 # 5. Installa dipendenze con timeout esteso (per connessioni lente)
 pip install -r requirements.txt --timeout 300 --retries 5
