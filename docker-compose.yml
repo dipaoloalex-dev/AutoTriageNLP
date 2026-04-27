@@ -24,6 +24,23 @@ version: '3.8'
 services:
 
   # ----------------------------------------
+  # TRAINING - Addestramento Modello ML
+  # ----------------------------------------
+  # Container one-shot: addestra il modello e esce
+  # Uso: docker-compose run --rm training
+  training:
+    build:
+      context: .
+      dockerfile: training.Dockerfile
+    container_name: autotriage-training
+    volumes:
+      - ./data:/app/data:rw
+      - ./models:/app/models:rw
+    # Non si avvia automaticamente con 'up'
+    profiles:
+      - training
+
+  # ----------------------------------------
   # FRONTEND - Next.js Application
   # ----------------------------------------
   frontend:
