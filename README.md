@@ -33,13 +33,47 @@ Un'architettura **Full Stack moderna** che combina:
 
 ## 🚀 Guida Rapida - Avvio
 
-### Opzione 1: Docker (Consigliato - Più Semplice)
+### Opzione 1: Docker (Consigliato - Nessuna Installazione)
+
+Con Docker non devi installare Python, Node.js o alcuna libreria sul tuo PC. Tutto gira dentro container isolati.
 
 **Prerequisiti:**
-- Docker e Docker Compose installati
+- Docker Desktop installato ([Download](https://www.docker.com/products/docker-desktop/))
+- Docker Compose (incluso in Docker Desktop)
+
+---
+
+#### Passo 0: Generazione Modello ML (solo la prima volta)
+
+Il backend necessita del file `models/unified_model.pkl` per funzionare. Puoi generarlo direttamente con Docker, senza installare nulla sul tuo PC:
 
 ```bash
-# Avvia entrambi i servizi (frontend + backend)
+# Prima volta: costruisci l'immagine di training
+docker-compose --profile training build training
+
+# Poi esegui il training
+# Questo scarica le dipendenze, prepara i dati e addestra il modello
+# Richiede circa 5-10 minuti
+docker-compose --profile training run --rm training
+```
+
+**Cosa succede:**
+- Il container scarica pandas, scikit-learn e le altre librerie (solo la prima volta)
+- Legge i dataset dalla cartella `data/`
+- Genera il file `models/unified_model.pkl` che resta sul tuo PC
+- Il container viene automaticamente rimosso dopo il completamento
+
+**Verifica che il modello sia stato creato:**
+```bash
+ls models/unified_model.pkl
+```
+
+---
+
+#### Passo 1: Avvio dell'Applicazione
+
+```bash
+# Avvia frontend e backend
 docker-compose up --build
 ```
 
@@ -48,9 +82,20 @@ docker-compose up --build
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/api/v1/docs
 
+> **💡 Nota:** Una volta generato il modello, puoi avviare l'applicazione direttamente con `docker-compose up` (senza `--build`) per essere più veloce. Usa `--build` solo quando modifiche il codice.
+
 ---
 
-### Opzione 2: Manuale (Development)
+#### Passo 2: Spegnimento
+
+```bash
+# Ferma e rimuovi i container
+docker-compose down
+```
+
+---
+
+### Opzione 2: Manuale (Sviluppo Locale)
 
 **Prerequisiti:**
 - Python 3.10+
@@ -65,7 +110,7 @@ docker-compose up --build
 ls data/kaggle_tickets_it.csv
 
 # Installa dipendenze Python per il training
-pip install pandas scikit-learn numpy matplotlib seaborn joblib deep_translator
+pip install pandas scikit-learn numpy matplotlib seaborn joblib deep_translator tqdm
 
 # Prepara il dataset tradotto (richiede alcuni minuti)
 python src/prepare_data.py
@@ -189,18 +234,29 @@ ping files.pythonhosted.org
 ```
 
 ### Docker non funziona?
+
+**Backend fallisce con errore "unified_model.pkl not found"?**
+```bash
+# Devi prima generare il modello con il container di training
+docker-compose --profile training run --rm training
+
+# Poi riavvia l'applicazione
+docker-compose up --build
+```
+
+**Altri problemi Docker:**
 ```bash
 # 1. Verifica che Docker Desktop sia in esecuzione
 docker --version
 
-# 2. Pulisci cache Docker
+# 2. Verifica che le porte siano libere
+netstat -ano | findstr :3000
+netstat -ano | findstr :8000
+
+# 3. Pulisci cache Docker e ricostruisci
+docker-compose down
 docker system prune -a
-
-# 3. Rebuild senza cache
-docker-compose build --no-cache
-
-# 4. Riavvia i container
-docker-compose up -d
+docker-compose up --build
 ```
 
 ---
@@ -236,24 +292,27 @@ docker-compose down
 ## 📝 Note Importanti
 
 **⚠️ Modello ML richiesto:**
-Questo progetto è fornito in stato "vergine" (senza modello pre-addestrato). Prima di avviare il backend, devi:
+Questo progetto è fornito in stato "vergine" (senza modello pre-addestrato). Il backend necessita del file `models/unified_model.pkl` per funzionare.
 
-1. **Addestrare il modello** (richiede dataset):
-   ```bash
-   # Assicurati di avere i dataset nella cartella data/
-   python src/train_unified_model.py
-   ```
+**Con Docker (consigliato):**
+```bash
+# Genera il modello senza installare nulla
+docker-compose --profile training run --rm training
+```
 
-2. **Verifica che il modello esista**:
-   ```bash
-   ls -la models/unified_model.pkl
-   ```
+**Senza Docker (sviluppo locale):**
+```bash
+# Devi installare Python e le dipendenze
+pip install pandas scikit-learn numpy matplotlib seaborn joblib deep_translator
+python src/train_unified_model.py
+```
+
+**Verifica che il modello esista:**
+```bash
+ls -la models/unified_model.pkl
+```
 
 **Senza il modello, il backend partirà ma le API di classificazione non funzioneranno.**
-
-- La prima volta che avvii, l'installazione delle dipendenze potrebbe richiedere qualche minuto
-- Per sviluppo, usa `npm run dev` (hot reload attivo)
-- Per produzione, usa `npm run build && npm start`
 
 ---
 
