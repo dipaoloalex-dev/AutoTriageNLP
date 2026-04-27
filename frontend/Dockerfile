@@ -93,7 +93,7 @@ EXPOSE 3000
 
 # Variabili ambiente per la configurazione del server
 ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"  # Ascolto su tutte le interfacce
+# HOSTNAME "0.0.0.0"  # Ascolto su tutte le interfacce (impostato di default da Next.js)
 
 # ----------------------------------------
 # COMANDO DI AVVIO
