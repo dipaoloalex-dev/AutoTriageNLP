@@ -7,7 +7,7 @@
  * Definisce:
  * - Metadata SEO
  * - Font (Inter)
- * - Background effects
+ * - Background nero con griglia, linea e gradient
  * - Struttura HTML
  * - Footer comune
  */
@@ -19,7 +19,6 @@ import "./globals.css";
 // ========================================
 // CONFIGURAZIONE FONT
 // ========================================
-// Font Inter di Google Fonts (ottimizzato per UI)
 const inter = Inter({ subsets: ["latin"] });
 
 // ========================================
@@ -42,17 +41,9 @@ export default function RootLayout({
     <html lang="it" className="dark">
       <body className={inter.className + " min-h-screen flex flex-col"}>
         {/* ----------------------------------------
-            SFONDO ANIMATO
-            ----------------------------------------
-            Layer con effetti visivi di sfondo:
-            - Gradient overlay
-            - Grid pattern
-            - Glow effects
-          */}
+            SFONDO NERO CON GRIGLIA, LINEA E GLOW
+            ---------------------------------------- */}
         <div className="fixed inset-0 -z-10 overflow-hidden">
-          {/* Gradient overlay: sfumatura blu-viola */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-transparent" />
-
           {/* Grid pattern: griglia sottile */}
           <div
             className="absolute inset-0 opacity-[0.03]"
@@ -63,9 +54,13 @@ export default function RootLayout({
             }}
           />
 
-          {/* Glow effects: cerchi sfumati decorativi */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+          {/* Vertical accent line centrale */}
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 h-full w-px bg-gradient-to-b from-zinc-400/30 via-zinc-500/5 to-transparent" />
+
+          {/* Radial glow circles */}
+          <div className="absolute top-[20%] left-[20%] w-[600px] h-[600px] bg-zinc-400/20 rounded-full blur-[100px]" />
+          <div className="absolute bottom-[20%] right-[20%] w-[500px] h-[500px] bg-zinc-500/15 rounded-full blur-[80px]" />
+          <div className="absolute top-[60%] left-[40%] w-[400px] h-[400px] bg-zinc-300/10 rounded-full blur-[60px]" />
         </div>
 
         {/* ----------------------------------------
@@ -73,16 +68,13 @@ export default function RootLayout({
             ---------------------------------------- */}
         <div className="relative flex-1 flex flex-col">
           <main className="pt-20 pb-8 flex-1 min-h-[calc(100vh-12rem)]">
-            {/* children = pagina corrente (Next.js 13+ App Router) */}
             {children}
           </main>
         </div>
 
         {/* ----------------------------------------
             FOOTER
-            ----------------------------------------
-            Footer comune a tutte le pagine con info autore.
-          */}
+            ---------------------------------------- */}
         <footer className="relative border-t border-white/10 py-6 flex-shrink-0">
           <div className="container-custom text-center text-sm text-gray-400">
             <p>© 2026 AutoTriage NLP - Project Work Universitario</p>

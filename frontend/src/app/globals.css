@@ -64,9 +64,9 @@
 /* ======================================== */
 @layer base {
   body {
-    @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #0D101E 0%, #14192D 100%);
+    background: #000000;
+    color: #ffffff;
     min-height: 100vh;
   }
 
