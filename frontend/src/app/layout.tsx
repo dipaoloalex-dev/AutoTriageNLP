@@ -15,7 +15,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { DevIndicatorRemover } from "@/components/DevIndicatorRemover";
 
 // ========================================
 // CONFIGURAZIONE FONT
@@ -42,14 +41,6 @@ export default function RootLayout({
   return (
     <html lang="it" className="dark">
       <body className={inter.className + " min-h-screen flex flex-col"}>
-        {/* ----------------------------------------
-            COMPONENTE: Rimozione Indicatori Dev
-            ----------------------------------------
-            Rimuove aggressivamente tutti gli indicatori
-            di sviluppo che Next.js inietta durante il dev mode.
-          */}
-        <DevIndicatorRemover />
-
         {/* ----------------------------------------
             SFONDO ANIMATO
             ----------------------------------------
