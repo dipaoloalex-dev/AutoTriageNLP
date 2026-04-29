@@ -41,7 +41,7 @@ export default function ComparisonPage() {
           ======================================== */}
       <GlassCard className="mb-12 animate-fade-in-up">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Database className="w-6 h-6 text-gray-400" />
+          <Database className="w-6 h-6 text-blue-400" />
           Metodologia del Test
         </h2>
         <p className="text-gray-300 mb-6">
@@ -97,7 +97,7 @@ export default function ComparisonPage() {
           ======================================== */}
       <GlassCard className="mb-12 animate-slide-in-up">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Zap className="w-6 h-6 text-gray-400" />
+          <Zap className="w-6 h-6 text-purple-400" />
           Test Inversion
         </h2>
         <p className="text-gray-300 mb-6">

@@ -88,7 +88,7 @@ function ManualPageContent() {
         <div className="space-y-6">
           <GlassCard className="animate-slide-in-left">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-gray-400" />
+              <Sparkles className="w-6 h-6 text-blue-400" />
               Inserisci il Ticket
             </h2>
 
