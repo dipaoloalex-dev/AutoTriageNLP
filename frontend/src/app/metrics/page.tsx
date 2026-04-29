@@ -111,8 +111,8 @@ export default function MetricsPage() {
           HERO SECTION
           ---------------------------------------- */}
       <div className="text-center mb-8 animate-fade-in-up">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-gradient">Metriche del Modello</span>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          Metriche del Modello
         </h1>
         <p className="text-lg text-gray-400">
           Performance del modello di classificazione su test set

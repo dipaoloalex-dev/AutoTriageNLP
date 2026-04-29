@@ -100,7 +100,7 @@
 /* ---------------------------------------- */
 /* Componente base con effetto vetro (glassmorphism) */
   .glass-card {
-    background: rgba(20, 25, 45, 0.7);           /* Sfondo semitrasparente */
+    background: rgba(30, 30, 30, 0.7);           /* Sfondo grigio scuro soft */
     backdrop-filter: blur(20px);                  /* Effetto sfocatura sfondo */
     -webkit-backdrop-filter: blur(20px);          /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.08); /* Bordo sottile */
@@ -110,16 +110,16 @@
   }
 
   .glass-card:hover {
-    border-color: rgba(77, 166, 255, 0.3);       /* Bordo blu al hover */
+    border-color: rgba(150, 150, 150, 0.3);      /* Bordo grigio al hover */
     transform: translateY(-4px);                 /* Leggero sollevamento */
-    box-shadow: 0 12px 40px 0 rgba(77, 166, 255, 0.15);  /* Ombra blu */
+    box-shadow: 0 12px 40px 0 rgba(100, 100, 100, 0.15);  /* Ombra grigia */
   }
 
 /* ---------------------------------------- */
 /* GLASS INPUT */
 /* ---------------------------------------- */
   .glass-input {
-    background: rgba(20, 25, 45, 0.5);
+    background: rgba(30, 30, 30, 0.5);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
@@ -128,8 +128,8 @@
 
   .glass-input:focus {
     outline: none;
-    border-color: rgba(77, 166, 255, 0.5);       /* Bordo blu focus */
-    box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.1); /* Outer glow */
+    border-color: rgba(150, 150, 150, 0.5);       /* Bordo grigio focus */
+    box-shadow: 0 0 0 3px rgba(150, 150, 150, 0.1); /* Outer glow */
   }
 
   .glass-input::placeholder {
@@ -140,18 +140,18 @@
 /* GLASS BUTTON */
 /* ---------------------------------------- */
   .glass-button {
-    background: rgba(77, 166, 255, 0.2);
+    background: rgba(150, 150, 150, 0.2);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(77, 166, 255, 0.3);
+    border: 1px solid rgba(150, 150, 150, 0.3);
     color: white;
     transition: all 0.3s ease;
   }
 
   .glass-button:hover {
-    background: rgba(77, 166, 255, 0.3);
-    border-color: rgba(77, 166, 255, 0.5);
+    background: rgba(150, 150, 150, 0.3);
+    border-color: rgba(150, 150, 150, 0.5);
     transform: translateY(-2px);                  /* Leggero sollevamento */
-    box-shadow: 0 8px 20px rgba(77, 166, 255, 0.3);  /* Ombra blu */
+    box-shadow: 0 8px 20px rgba(150, 150, 150, 0.3);  /* Ombra grigia */
   }
 
   .glass-button:active {

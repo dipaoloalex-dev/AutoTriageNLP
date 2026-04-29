@@ -27,8 +27,8 @@ export default function ComparisonPage() {
           HERO SECTION
           ======================================== */}
       <div className="text-center mb-12 animate-fade-in-up">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="text-gradient">Confronto Dati Sintetici vs Reali</span>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+          Confronto Dati Sintetici vs Reali
         </h1>
         <p className="text-xl text-gray-400 max-w-3xl mx-auto">
           Analisi comparativa delle performance del modello addestrato su dati sintetici
@@ -143,8 +143,8 @@ export default function ComparisonPage() {
             (errori di battitura, sinonimi, ambiguità) costringe l&apos;algoritmo a cercare pattern
             semantici più profondi, rendendolo molto più stabile quando messo in produzione.
           </p>
-          <div className="mt-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
-            <p className="font-semibold text-blue-400 mb-2">✨ La scelta del Modello B è stata determinante</p>
+          <div className="mt-6 p-4 rounded-lg bg-gray-500/10 border border-gray-500/30">
+            <p className="font-semibold text-white mb-2">✨ La scelta del Modello B è stata determinante</p>
             <p className="text-sm">
               L&apos;uso di dati reali ha permesso di creare un sistema che capisce davvero il linguaggio
               naturale degli utenti, invece di limitarsi a riconoscere pattern preimpostati.

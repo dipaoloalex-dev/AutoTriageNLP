@@ -69,8 +69,8 @@ function ManualPageContent() {
           HERO SECTION
           ---------------------------------------- */}
       <div className="text-center mb-8 animate-fade-in-up">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-gradient">Classificazione Ticket</span>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          Classificazione Ticket
         </h1>
         <p className="text-lg text-gray-400">
           Inserisci un ticket per ottenerne la categoria e la priorità automaticamente
@@ -88,7 +88,7 @@ function ManualPageContent() {
         <div className="space-y-6">
           <GlassCard className="animate-slide-in-left">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-blue-400" />
+              <Sparkles className="w-6 h-6 text-gray-400" />
               Inserisci il Ticket
             </h2>
 
@@ -189,7 +189,7 @@ function ManualPageContent() {
                   {/* Categoria */}
                   <div className="text-center p-6 rounded-xl bg-white/5">
                     <p className="text-sm text-gray-400 mb-2">Categoria</p>
-                    <p className="text-3xl font-bold text-blue-400">{result.category}</p>
+                    <p className="text-3xl font-bold text-white">{result.category}</p>
                   </div>
 
                   {/* Priorità */}
@@ -257,7 +257,7 @@ function ManualPageContent() {
                         className={`px-4 py-2 rounded-lg font-medium ${
                           item.type === "trigger"
                             ? "bg-red-500/20 text-red-400 border border-red-500/30"  // Trigger = rosso
-                            : "bg-blue-500/20 text-blue-400 border border-blue-500/30" // LIME = blu
+                            : "bg-gray-500/20 text-gray-400 border border-gray-500/30" // LIME = grigio
                         }`}
                       >
                         {item.word}

@@ -169,8 +169,8 @@ export default function BatchPage() {
           HERO SECTION
           ---------------------------------------- */}
       <div className="text-center mb-8 animate-fade-in-up">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-gradient">Importazione CSV</span>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          Importazione CSV
         </h1>
         <p className="text-lg text-gray-400">
           Carica un file CSV per analizzare gruppi di ticket in un&apos;unica operazione
@@ -278,7 +278,7 @@ export default function BatchPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {/* Ticket Totali */}
                 <div className="text-center p-4 rounded-lg bg-white/5">
-                  <p className="text-3xl font-bold text-blue-400">{summary.total_processed}</p>
+                  <p className="text-3xl font-bold text-white">{summary.total_processed}</p>
                   <p className="text-sm text-gray-400 mt-1">Ticket Analizzati</p>
                 </div>
 
@@ -342,7 +342,7 @@ export default function BatchPage() {
 
                         {/* Categoria */}
                         <td className="py-3 px-4">
-                          <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-sm font-medium">
+                          <span className="px-3 py-1 rounded-full bg-gray-500/20 text-gray-400 text-sm font-medium">
                             {result.category}
                           </span>
                         </td>

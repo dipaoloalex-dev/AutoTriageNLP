@@ -56,8 +56,8 @@ export default function HomePage() {
           HERO SECTION
           ======================================== */}
       <div className="text-center mb-12 animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">
-          <span className="text-gradient">AutoTriage NLP</span>
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+          AutoTriage NLP
         </h1>
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
           Sistema intelligente di classificazione e prioritarizzazione ticket
@@ -90,7 +90,7 @@ export default function HomePage() {
                 <Icon className="w-full h-full text-white" />
               </div>
               {/* Titolo con hover effect */}
-              <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
+              <h3 className="text-xl font-bold mb-2 group-hover:text-white transition-colors text-gray-200">
                 {feature.title}
               </h3>
               <p className="text-gray-400 text-sm">
