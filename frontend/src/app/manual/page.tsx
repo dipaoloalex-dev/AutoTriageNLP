@@ -94,7 +94,7 @@ function ManualPageContent() {
 
             {/* TextArea per input */}
             <TextArea
-              label="Contenuto del ticket"
+              label="Contenuto del ticket:"
               placeholder="Inserisci qui il testo del ticket..."
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -226,13 +226,12 @@ function ManualPageContent() {
                       </div>
                       <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className={`h-full transition-all duration-1000 ${
-                            priority === "Alta"
+                          className={`h-full transition-all duration-1000 ${priority === "Alta"
                               ? "bg-red-500"
                               : priority === "Media"
-                              ? "bg-orange-500"
-                              : "bg-green-500"
-                          }`}
+                                ? "bg-orange-500"
+                                : "bg-green-500"
+                            }`}
                           style={{ width: `${prob * 100}%` }}
                         />
                       </div>
@@ -254,11 +253,10 @@ function ManualPageContent() {
                     {result.lime_explanation.map((item, index) => (
                       <span
                         key={index}
-                        className={`px-4 py-2 rounded-lg font-medium ${
-                          item.type === "trigger"
+                        className={`px-4 py-2 rounded-lg font-medium ${item.type === "trigger"
                             ? "bg-red-500/20 text-red-400 border border-red-500/30"  // Trigger = rosso
                             : "bg-gray-500/20 text-gray-400 border border-gray-500/30" // LIME = grigio
-                        }`}
+                          }`}
                       >
                         {item.word}
                       </span>

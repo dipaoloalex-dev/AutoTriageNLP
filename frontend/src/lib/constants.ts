@@ -81,10 +81,11 @@ export const PRIORITY_CONFIG = {
 // ========================================
 // Ticket di esempio per la pagina di classificazione manuale
 // Usati come "quick fill" per testare l'applicazione
+// Mix di categorie (Tecnico, Amministrativo, Commerciale) e priorità (Bassa, Media, Alta)
 export const EXAMPLE_TICKETS = [
-  "Il sistema gestionale è bloccato e non riusciamo a emettere fatture.",
-  "Vorrei informazioni su come accedere alla VPN aziendale.",
-  "Ho bisogno di installare un nuovo software richiesto per il mio lavoro.",
-  "Ho dimenticato la password per accedere al portale dipendenti.",
-  "Il computer è molto lento e si blocca spesso durante l'uso.",
+  "Il server è down e non funzionano i servizi, urgenza!", // Tecnico - Alta
+  "Vorrei informazioni generiche sui vostri prodotti, senza urgenza.", // Commerciale - Bassa
+  "Ho problemi con il sistema fatturazione per emettere le fatture.", // Amministrativo - Media
+  "La connessione VPN è lenta e non riesco a lavorare da casa.", // Tecnico - Media
+  "Cliente importante che vuole annullare il contratto, gestire subito!", // Commerciale - Alta
 ];
