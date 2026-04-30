@@ -60,7 +60,29 @@ docker-compose --profile training run --rm training
 
 ---
 
-#### Passo 2: Avvio dell'Applicazione
+#### Passo 2: Generazione Grafici Confronto
+
+Per generare i grafici di confronto tra modello sintetico e reale con Docker:
+
+```bash
+# Costruisci l'immagine di comparison.
+docker-compose --profile comparison build comparison
+
+# Esegui il confronto. Questo genera i dati sintetici e crea i grafici.
+docker-compose --profile comparison run --rm comparison
+```
+
+**Cosa succede:**
+- Il container genera 500 ticket sintetici in `data/synthetic_tickets.csv`
+- Esegue il test comparativo tra modello su dati sintetici e reali
+- Crea i grafici in `img/png/`:
+  - `comparison_chart.png` - Confronto capacità di generalizzazione
+  - `confusion_matrix_a_on_real.png` - Modello A testato su dati reali
+  - `confusion_matrix_b_on_synth.png` - Modello B testato su dati sintetici
+
+---
+
+#### Passo 3: Avvio dell'Applicazione
 
 ```bash
 # Avvia frontend e backend
@@ -76,7 +98,7 @@ docker-compose up --build
 
 ---
 
-#### Passo 3: Spegnimento
+#### Passo 4: Spegnimento
 
 ```bash
 # Ferma e rimuovi i container
@@ -110,9 +132,12 @@ Questo creerà il file `models/unified_model.pkl` necessario per il backend.
 
 #### Passo 2: Generazione Grafici Confronto
 
-Per generare i grafici di confronto tra modello sintetico e reale:
+Per generare i grafici di confronto tra modello sintetico e reale puoi usare Docker (vedi sopra) o il metodo manuale:
 
 ```bash
+# Installa le dipendenze aggiuntive per i grafici
+pip install matplotlib seaborn
+
 # Genera dati sintetici (500 ticket fittizi)
 python src/generate_synthetic_data.py
 

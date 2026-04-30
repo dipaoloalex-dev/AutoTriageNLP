@@ -41,6 +41,24 @@ services:
       - training
 
   # ----------------------------------------
+  # COMPARISON - Confronto Modelli Sintetico vs Reale
+  # ----------------------------------------
+  # Container one-shot: genera grafici di confronto e esce
+  # Uso: docker-compose --profile comparison run --rm comparison
+  comparison:
+    build:
+      context: .
+      dockerfile: comparison.Dockerfile
+    container_name: autotriage-comparison
+    volumes:
+      - ./data:/app/data:rw
+      - ./img:/app/img:rw
+      - ./models:/app/models:ro
+    # Non si avvia automaticamente con 'up'
+    profiles:
+      - comparison
+
+  # ----------------------------------------
   # FRONTEND - Next.js Application
   # ----------------------------------------
   frontend:
