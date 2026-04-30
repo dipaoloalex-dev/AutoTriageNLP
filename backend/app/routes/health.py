@@ -27,22 +27,17 @@ router = APIRouter()
 @router.get("/", status_code=200)
 async def health_check() -> dict:
     """
-    Health check endpoint.
-
     Verifica che l'API sia funzionante e il modello ML caricato.
 
-    Returns:
-        Dict con:
-        - status: "healthy" o "unhealthy"
-        - app: Nome dell'applicazione
-        - version: Versione corrente
-        - model_loaded: True se modello caricato
-        - model_path: Percorso del file modello
+    **Returns: Dict con:**
 
-    Note:
-        Se il modello non è caricato, restituisce status "unhealthy"
-        con dettagli dell'errore. Questo permette ai sistemi di
-        monitoraggio di rilevare problemi di configurazione.
+        - status: healthy o unhealthy.
+        - app: nome dell'applicazione
+        - version: versione corrente
+        - model_loaded: true se modello caricato
+        - model_path: percorso del file modello
+
+    Se il modello non è caricato, restituisce status **unhealthy** con dettagli dell'errore. Questo permette ai sistemi di monitoraggio di rilevare problemi di configurazione.
     """
     try:
         # Ottieni istanza singleton del ModelManager

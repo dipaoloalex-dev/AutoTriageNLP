@@ -80,23 +80,25 @@ async def classify_ticket(request: TicketRequest) -> Dict[str, Any]:
     """
     Classifica un singolo ticket.
 
-    Pipeline:
-    1. Recupera il modello ML (singleton cached)
-    2. Applica TicketService per classificazione
-    3. Genera spiegazioni LIME
-    4. Unisce risultati e formatta per frontend
+    **Pipeline:**
 
-    Returns:
-        Dict con:
-        - category: Categoria assegnata
-        - priority: Priorità assegnata
-        - confidence: Confidenza (0-1)
-        - probabilities: Dict probabilità per classe
-        - lime_explanation: Lista parole chiave LIME + triggers
-        - text_preview: Anteprima testo (max 200 char)
+        - Recupera il modello ML (singleton cached)
+        - Applica TicketService per classificazione
+        - Genera spiegazioni LIME
+        - Unisce risultati e formatta per frontend
 
-    Raises:
-        HTTPException 500: Errore durante classificazione
+    **Returns: Dict con:**
+
+        - category: categoria assegnata
+        - priority: priorità assegnata
+        - confidence: confidenza (0-1)
+        - probabilities: dict probabilità per classe
+        - lime_explanation: lista parole chiave LIME + triggers
+        - text_preview: anteprima testo (max 200 char)
+
+    **Raises:**
+
+        - HTTPException 500: Errore durante classificazione
     """
     try:
         # ----------------------------------------
@@ -140,23 +142,22 @@ async def classify_ticket(request: TicketRequest) -> Dict[str, Any]:
 @router.post("/batch", response_model=Dict[str, Any])
 async def classify_batch(request: BatchClassifyRequest) -> Dict[str, Any]:
     """
-    Classifica una lista di ticket.
+    Classifica una lista di ticket. Elabora ogni ticket singolarmente e calcola statistiche aggregate.
 
-    Elabora ogni ticket singolarmente e calcola statistiche aggregate.
+    **Returns: Dict con:**
 
-    Returns:
-        Dict con:
-        - results: Lista di risultati per ogni ticket
-        - summary: Statistiche aggregate
-            - total: Numero totale ticket
-            - high_priority: Conteggio priorità Alta
-            - medium_priority: Conteggio priorità Media
-            - low_priority: Conteggio priorità Bassa
+        - results: lista di risultati per ogni ticket
+        - summary: statistiche aggregate
+            - total: numero totale ticket
+            - high_priority: conteggio priorità Alta
+            - medium_priority: conteggio priorità Media
+            - low_priority: conteggio priorità Bassa
             - high_priority_percentage: % priorità Alta
-        - success: True se operazione completata
+        - success: `true` se operazione completata
 
-    Raises:
-        HTTPException 500: Errore durante classificazione
+    **Raises:**
+
+        - HTTPException 500: Errore durante classificazione
     """
     try:
         model_manager = ModelManager()
@@ -200,27 +201,24 @@ async def classify_batch(request: BatchClassifyRequest) -> Dict[str, Any]:
 @router.post("/upload-csv")
 async def upload_csv(file: UploadFile = File(...)) -> Dict[str, Any]:
     """
-    Carica un file CSV e classifica tutti i ticket.
+    Carica un file CSV e classifica tutti i ticket. Il CSV deve avere una colonna con nome: **text**, **body**, **testo** o **descrizione**. Le righe vengono classificate e restituite con le colonne aggiuntive.
 
-    Il CSV deve avere una colonna con nome: text, body, testo o descrizione.
-    Le righe vengono classificate e restituite con le colonne aggiuntive.
+    **Args:**
 
-    Args:
-        file: File CSV caricato via multipart/form-data
+        - file: file CSV caricato via multipart/form-data
 
-    Returns:
-        Dict con:
-        - results: Lista risultati (max 100 per display)
-        - summary: Statistiche aggregate
-        - total_rows: Numero totale righe nel CSV
+    **Returns: Dict con:**
 
-    Raises:
-        HTTPException 400: CSV vuoto, colonna mancante, troppe righe
-        HTTPException 500: Errore durante elaborazione
+        - results: lista risultati (max 100 per display)
+        - summary: statistiche aggregate
+        - total_rows: numero totale righe nel CSV
 
-    Note:
-        I risultati sono limitati a 100 per evitare payload troppo grandi.
-        Tutte le righe vengono comunque classificate.
+    **Raises:**
+
+        - HTTPException 400: CSV vuoto, colonna mancante, troppe righe
+        - HTTPException 500: Errore durante elaborazione
+
+    I risultati sono limitati a 100 per evitare payload troppo grandi. Tutte le righe vengono comunque classificate.
     """
     try:
         # ----------------------------------------

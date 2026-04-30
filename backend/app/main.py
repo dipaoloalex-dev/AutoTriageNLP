@@ -137,16 +137,16 @@ app.include_router(
 # ========================================
 # ROOT ENDPOINT
 # ========================================
-@app.get("/")
+@app.get("/", tags=["Default"])
 async def root():
     """
     Endpoint root con informazioni sull'API.
 
-    Returns:
-        Dict con:
-        - app: Nome applicazione
-        - version: Versione corrente
-        - docs: Link documentazione Swagger
+    **Returns: Dict con:**
+
+        - app: nome applicazione
+        - version: versione corrente
+        - docs: link documentazione Swagger
         - status: "running"
     """
     return {

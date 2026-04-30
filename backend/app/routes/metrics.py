@@ -31,18 +31,14 @@ async def get_metrics_summary() -> Dict[str, Any]:
     """
     Restituisce il riepilogo delle metriche del modello.
 
-    Returns:
-        Dict con metriche per Categoria e Priorità:
-        - accuracy: Percentuale di classificazioni corrette
-        - precision: Affidabilità delle predizioni positive
-        - recall: Capacità di rilevare tutti i positivi
-        - f1: Media armonica di precision e recall
+    **Returns: Dict con metriche per Categoria e Priorità:**
 
-    Note:
-        Se il file metrics_summary.json non viene trovato,
-        restituisce valori di default con flag "note".
-        Questo permette al frontend di funzionare anche
-        in assenza del file metrics.
+        - accuracy: percentuale di classificazioni corrette
+        - precision: affidabilità delle predizioni positive
+        - recall: capacità di rilevare tutti i positivi
+        - f1: media armonica di precision e recall
+
+    Se il file **metrics_summary.json** non viene trovato, restituisce valori di default con flag **note**. Questo permette al frontend di funzionare anche in assenza del file **metrics_summary.json**.
     """
     try:
         # ----------------------------------------
@@ -86,18 +82,15 @@ async def get_metrics_images() -> Dict[str, Any]:
     """
     Restituisce i path delle immagini delle metriche.
 
-    Returns:
-        Dict con URLs per le varie immagini metriche:
-        - confusion_matrix_category/priority: Matrici di confusione
-        - accuracy_category/priority: Grafici accuracy
-        - precision_category/priority: Grafici precision
-        - recall_category/priority: Grafici recall
-        - f1score_category/priority: Grafici F1-score
+    **Returns: Dict con URLs per le varie immagini metriche:**
 
-    Note:
-        Filtra automaticamente le immagini che non esistono
-        per evitare errori 404 nel frontend.
-        Il path "../img" viene tradotto in "/assets" per il routing.
+        - confusion_matrix_category/priority: matrici di confusione
+        - accuracy_category/priority: grafici accuracy
+        - precision_category/priority: grafici precision
+        - recall_category/priority: grafici recall
+        - f1score_category/priority: grafici F1-score
+
+    Filtra automaticamente le immagini che non esistono per evitare errori 404 nel frontend. Il path **"../img"** viene tradotto in **"/assets"** per il routing.
     """
     try:
         # Base path per le immagini metriche
