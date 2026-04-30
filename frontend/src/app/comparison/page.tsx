@@ -15,6 +15,7 @@
 import React from "react";
 import { GlassCard } from "@/components/GlassCard";
 import { NavigationButton } from "@/components/Navigation";
+import { ComparisonChart } from "@/components/ComparisonChart";
 import { AlertTriangle, CheckCircle, Database, Zap } from "lucide-react";
 
 export default function ComparisonPage() {
@@ -105,26 +106,33 @@ export default function ComparisonPage() {
           la capacità di generalizzazione:
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Modello A su Dati Reali */}
           <div className="text-center p-6 rounded-xl bg-white/5">
             <h3 className="text-lg font-semibold mb-2">Modello A su Dati Reali</h3>
-            <div className="text-5xl font-bold text-red-400 mb-2">~45-55%</div>
+            <div className="text-5xl font-bold text-red-400 mb-2">50.9%</div>
             <p className="text-sm text-red-400">Accuracy 📉</p>
             <p className="text-xs text-gray-400 mt-3">
-              <em>Valore stimato</em> - Il modello sintetico va in crisi con il linguaggio umano reale perché cerca pattern esatti che non trova.
+              Il modello sintetico va in crisi con il linguaggio umano reale perché cerca pattern esatti che non trova.
             </p>
           </div>
 
           {/* Modello B su Dati Sintetici */}
           <div className="text-center p-6 rounded-xl bg-white/5">
             <h3 className="text-lg font-semibold mb-2">Modello B su Dati Sintetici</h3>
-            <div className="text-5xl font-bold text-green-400 mb-2">~65-75%</div>
+            <div className="text-5xl font-bold text-green-400 mb-2">58.96%</div>
             <p className="text-sm text-green-400">Accuracy 📈</p>
             <p className="text-xs text-gray-400 mt-3">
-              <em>Valore stimato</em> - Il modello addestrato su dati reali gestisce bene anche i ticket sintetici, dimostrando ottima generalizzazione.
+              Il modello addestrato su dati reali gestisce bene anche i ticket sintetici, dimostrando ottima generalizzazione.
             </p>
           </div>
+        </div>
+
+        {/* ========================================
+            GRAFICO CONFRONTO INTERATTIVO
+            ======================================== */}
+        <div className="mb-8">
+          <ComparisonChart />
         </div>
       </GlassCard>
 

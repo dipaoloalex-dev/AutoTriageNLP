@@ -108,7 +108,26 @@ Questo creerà il file `models/unified_model.pkl` necessario per il backend.
 
 ---
 
-#### Passo 1: Backend (FastAPI)
+#### Passo 2: Generazione Grafici Confronto
+
+Per generare i grafici di confronto tra modello sintetico e reale:
+
+```bash
+# Genera dati sintetici (500 ticket fittizi)
+python src/generate_synthetic_data.py
+
+# Esegui test comparativo e genera grafici
+python src/compare_models.py
+```
+
+Questo creerà i grafici in `img/png/`:
+- `comparison_chart.png` - Confronto capacità di generalizzazione
+- `confusion_matrix_a_on_real.png` - Modello A testato su dati reali
+- `confusion_matrix_b_on_synth.png` - Modello B testato su dati sintetici
+
+---
+
+#### Passo 3: Backend (FastAPI)
 
 ```bash
 # 1. Entra nella cartella backend
@@ -136,7 +155,7 @@ cp .env.example .env
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-#### Passo 2: Frontend (Next.js)
+#### Passo 4: Frontend (Next.js)
 
 Apri un nuovo terminale (lascia il backend attivo nell'altro):
 

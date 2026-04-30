@@ -99,10 +99,10 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
         },
       },
       tooltip: {
-        backgroundColor: "rgba(20, 25, 45, 0.9)",
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
         titleColor: "white",
         bodyColor: "white",
-        borderColor: "rgba(255, 255, 255, 0.1)",
+        borderColor: "rgba(255, 255, 255, 0.2)",
         borderWidth: 1,
         padding: 12,
         displayColors: true,
@@ -129,9 +129,9 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
   };
 
   // ========================================
-  // DATI DOUGHNUT CHART
+  // DATI DOUGHNUT CHART CATEGORIA
   // ========================================
-  const doughnutData = {
+  const doughnutCategoryData = {
     labels: ["Corretti", "Errati"],
     datasets: [
       {
@@ -146,6 +146,24 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
     ],
   };
 
+  // ========================================
+  // DATI DOUGHNUT CHART PRIORITÀ
+  // ========================================
+  const doughnutPriorityData = {
+    labels: ["Corretti", "Errati"],
+    datasets: [
+      {
+        data: [
+          metrics.priority.accuracy * 100,
+          (1 - metrics.priority.accuracy) * 100,
+        ],
+        backgroundColor: ["rgba(249, 115, 22, 0.8)", "rgba(168, 85, 247, 0.7)"],
+        borderColor: ["rgba(249, 115, 22, 1)", "rgba(168, 85, 247, 1)"],
+        borderWidth: 2,
+      },
+    ],
+  };
+
   // Opzioni doughnut chart
   const doughnutOptions = {
     responsive: true,
@@ -155,11 +173,11 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
         position: "bottom" as const,
         labels: {
           color: "rgba(255, 255, 255, 0.8)",
-          font: { size: 14 },
+          font: { size: 12 },
         },
       },
       tooltip: {
-        backgroundColor: "rgba(20, 25, 45, 0.9)",
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
         callbacks: {
           label: (context: any) => `${context.label}: ${context.raw.toFixed(1)}%`,
         },
@@ -171,32 +189,49 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
   // RENDER
   // ========================================
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* ----------------------------------------
-          BAR CHART (2 colonne su lg)
-          ---------------------------------------- */}
-      <GlassCard className="lg:col-span-2">
+    <div className="space-y-6">
+      {/* ========================================
+          BAR CHART
+          ======================================== */}
+      <GlassCard>
         <h3 className="text-xl font-bold mb-4">Metriche Complete</h3>
-        <div className="h-[400px]">
+        <div className="h-[350px]">
           <Bar data={barData} options={barOptions} />
         </div>
       </GlassCard>
 
-      {/* ----------------------------------------
-          DOUGHNUT CHART (1 colonna su lg)
-          ---------------------------------------- */}
-      <GlassCard>
-        <h3 className="text-xl font-bold mb-4">Accuracy Categoria</h3>
-        <div className="h-[300px] flex items-center justify-center">
-          <Doughnut data={doughnutData} options={doughnutOptions} />
-        </div>
-        <div className="text-center mt-4">
-          <p className="text-4xl font-bold text-blue-400">
-            {(metrics.category.accuracy * 100).toFixed(1)}%
-          </p>
-          <p className="text-sm text-gray-400 mt-1">Accuracy Complessiva</p>
-        </div>
-      </GlassCard>
+      {/* ========================================
+          DOUGHNUT CHARTS (2 affiancati)
+          ======================================== */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Doughnut Categoria */}
+        <GlassCard>
+          <h3 className="text-lg font-bold mb-4">Accuracy Categoria</h3>
+          <div className="h-[250px] flex items-center justify-center">
+            <Doughnut data={doughnutCategoryData} options={doughnutOptions} />
+          </div>
+          <div className="text-center mt-4">
+            <p className="text-4xl font-bold text-blue-400">
+              {(metrics.category.accuracy * 100).toFixed(1)}%
+            </p>
+            <p className="text-sm text-gray-400 mt-1">Accuracy Complessiva</p>
+          </div>
+        </GlassCard>
+
+        {/* Doughnut Priorità */}
+        <GlassCard>
+          <h3 className="text-lg font-bold mb-4">Accuracy Priorità</h3>
+          <div className="h-[250px] flex items-center justify-center">
+            <Doughnut data={doughnutPriorityData} options={doughnutOptions} />
+          </div>
+          <div className="text-center mt-4">
+            <p className="text-4xl font-bold text-orange-400">
+              {(metrics.priority.accuracy * 100).toFixed(1)}%
+            </p>
+            <p className="text-sm text-gray-400 mt-1">Accuracy Complessiva</p>
+          </div>
+        </GlassCard>
+      </div>
     </div>
   );
 }

@@ -94,7 +94,7 @@ async def get_metrics_images() -> Dict[str, Any]:
     """
     try:
         # Base path per le immagini metriche
-        base_path = "../img/png"
+        base_path = "img/png"
 
         # Mappa completa di tutte le immagini possibili
         images = {

@@ -61,7 +61,6 @@ metrics_report_unified.txt
 # ========================================
 # img/png/*.png: grafici, matrici di confusione, plot generati automaticamente
 # Sono artefatti di output, non codice sorgente
-# Esclusione con wildcard per ignorare TUTTE le PNG in quella cartella
 img/png/*.png
 
 # ========================================

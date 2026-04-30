@@ -36,7 +36,7 @@ SYNTHETIC_DATA: str = os.path.join('data', 'synthetic_tickets.csv')
 # Dataset reale tradotto da prepare_data.py
 REAL_DATA: str = os.path.join('data', 'tickets_it_augmented.csv')
 # Cartella dove salvare i grafici generati
-IMG_DIR: str = os.path.join('assets', 'img', 'png')
+IMG_DIR: str = os.path.join('img', 'png')
 
 # Creo la cartella se non esiste
 os.makedirs(IMG_DIR, exist_ok=True)

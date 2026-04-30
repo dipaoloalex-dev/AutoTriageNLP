@@ -176,48 +176,11 @@ export default function MetricsPage() {
       </div>
 
       {/* ----------------------------------------
-          CONFUSION MATRIX IMAGES
-          ---------------------------------------- */}
-      {Object.keys(images).length > 0 && (
-        <div className="animate-fade-in-up">
-          <h2 className="text-2xl font-bold mb-6">Confusion Matrix</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Matrice confusione Categoria */}
-            {images.confusion_matrix_category && (
-              <GlassCard>
-                <h3 className="text-lg font-semibold mb-4">Categoria</h3>
-                <img
-                  src={images.confusion_matrix_category.replace("../assets", "/assets")}
-                  alt="Confusion Matrix Categoria"
-                  className="w-full rounded-lg"
-                />
-              </GlassCard>
-            )}
-            {/* Matrice confusione Priorità */}
-            {images.confusion_matrix_priority && (
-              <GlassCard>
-                <h3 className="text-lg font-semibold mb-4">Priorità</h3>
-                <img
-                  src={images.confusion_matrix_priority.replace("../assets", "/assets")}
-                  alt="Confusion Matrix Priorità"
-                  className="w-full rounded-lg"
-                />
-              </GlassCard>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* ----------------------------------------
           SPIEGAZIONE METRICHE
           ---------------------------------------- */}
       <GlassCard className="mt-12">
         <h3 className="text-xl font-bold mb-4">Come leggere questi dati</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-300">
-          <div>
-            <p className="font-semibold text-white mb-2">📊 Confusion Matrix</p>
-            <p>Visualizza gli errori di smistamento. La diagonale rappresenta le previsioni corrette.</p>
-          </div>
           <div>
             <p className="font-semibold text-white mb-2">🎯 Accuracy</p>
             <p>Percentuale complessiva di classificazioni esatte.</p>
