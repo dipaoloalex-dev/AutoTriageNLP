@@ -11,8 +11,6 @@
 
 `⭐ Aggiungi una stella su GitHub per supportare il mio progetto universitario!`
 
-**Full Stack Architecture - Next.js + FastAPI + Design Glassmorphism**
-
 </div>
 
 ---
@@ -21,13 +19,12 @@
 
 Questo repository contiene il codice sorgente del mio Project Work per il corso di Informatica per le Aziende Digitali (L-31). Il sistema, chiamato AutoTriage NLP, utilizza il Machine Learning per analizzare il testo dei ticket di supporto clienti e smistarli automaticamente.
 
-Un'architettura **Full Stack moderna** che combina:
+Un'architettura **Full Stack** moderna che combina:
 
-* **Modello Unificato**: Un singolo algoritmo (`MultiOutputClassifier`) stima contemporaneamente la **Categoria di destinazione** (Hardware, Software, Reti, Accesso, Altro) e la **Priorità del ticket** (Alta, Media, Bassa).
+* **Modello Unificato**: Un singolo algoritmo (`MultiOutputClassifier`) stima contemporaneamente la **Categoria di destinazione** (Amministrativa, Commerciale, Tecnica) e la **Priorità del ticket** (Alta, Media, Bassa).
 * **Logica Ibrida per le Priorità**: Per evitare che l'algoritmo sottostimi ticket critici, le predizioni statistiche sono affiancate da regole fisse basate su keyword (es. forzatura a priorità "Alta" se il testo contiene parole come "virus" o "blocco").
 * **Interpretabilità (LIME)**: L'integrazione della libreria LIME permette di visualizzare a schermo quali parole esatte hanno spinto il modello a prendere una determinata decisione, rendendolo trasparente per l'operatore.
 * **Addestramento su Dati Reali**: Il modello è addestrato su un dataset pubblico di Kaggle contenente oltre 20.000 ticket reali, massivamente tradotti in italiano.
-* **Design Glassmorphism**: Interfaccia moderna con effetti vetro, animazioni fluide e dark theme ispirato al portfolio professionale.
 
 ---
 
@@ -43,34 +40,27 @@ Con Docker non devi installare Python, Node.js o alcuna libreria sul tuo PC. Tut
 
 ---
 
-#### Passo 0: Generazione Modello ML (solo la prima volta)
+#### Passo 1: Generazione Modello ML
 
-Il backend necessita del file `models/unified_model.pkl` per funzionare. Puoi generarlo direttamente con Docker, senza installare nulla sul tuo PC:
+Il backend necessita del file `models/unified_model.pkl` per funzionare. Puoi generarlo direttamente con Docker:
 
 ```bash
-# Prima volta: costruisci l'immagine di training
+# Costruisci l'immagine di training.
 docker-compose --profile training build training
 
-# Poi esegui il training
-# Questo scarica le dipendenze, prepara i dati e addestra il modello
-# Richiede circa 5-10 minuti
+# Esegui il training. Questo scarica le dipendenze, prepara i dati e addestra il modello.
 docker-compose --profile training run --rm training
 ```
 
 **Cosa succede:**
-- Il container scarica pandas, scikit-learn e le altre librerie (solo la prima volta)
+- Il container scarica pandas, scikit-learn e le altre librerie
 - Legge i dataset dalla cartella `data/`
 - Genera il file `models/unified_model.pkl` che resta sul tuo PC
 - Il container viene automaticamente rimosso dopo il completamento
 
-**Verifica che il modello sia stato creato:**
-```bash
-ls models/unified_model.pkl
-```
-
 ---
 
-#### Passo 1: Avvio dell'Applicazione
+#### Passo 2: Avvio dell'Applicazione
 
 ```bash
 # Avvia frontend e backend
@@ -82,11 +72,11 @@ docker-compose up --build
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/api/v1/docs
 
-> **💡 Nota:** Una volta generato il modello, puoi avviare l'applicazione direttamente con `docker-compose up` (senza `--build`) per essere più veloce. Usa `--build` solo quando modifiche il codice.
+> **💡 Nota:** Una volta generato il modello, puoi avviare l'applicazione direttamente con `docker-compose up` (senza `--build`) per essere più veloce. Usa `--build` solo se modifichi il codice.
 
 ---
 
-#### Passo 2: Spegnimento
+#### Passo 3: Spegnimento
 
 ```bash
 # Ferma e rimuovi i container
@@ -101,21 +91,16 @@ docker-compose down
 - Python 3.10+
 - Node.js 20+
 
-#### Passo 0: Addestramento Modello ML (da fare solo la prima volta)
-
-**Dalla ROOT del progetto** (non entrare in backend/frontend):
+#### Passo 1: Addestramento Modello ML
 
 ```bash
-# Verifica di avere i dataset nella cartella data/
-ls data/kaggle_tickets_it.csv
-
-# Installa dipendenze Python per il training
+# Installa le dipendenze Python per il training
 pip install pandas scikit-learn numpy matplotlib seaborn joblib deep_translator tqdm
 
-# Prepara il dataset tradotto (richiede alcuni minuti)
+# Prepara il dataset tradotto
 python src/prepare_data.py
 
-# Addestra il modello (richiede circa 5-10 minuti)
+# Addestra il modello
 python src/train_unified_model.py
 ```
 
@@ -138,7 +123,7 @@ source venv/bin/activate
 # Su Windows:
 venv\Scripts\activate
 
-# 4. Aggiorna pip (consigliato)
+# 4. Aggiorna pip
 python -m pip install --upgrade pip
 
 # 5. Installa dipendenze con timeout esteso (per connessioni lente)
@@ -151,11 +136,9 @@ cp .env.example .env
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Backend sarà su: **http://localhost:8000**
-
 #### Passo 2: Frontend (Next.js)
 
-**Apri un NUOVO terminale** (lascia il backend attivo nell'altro):
+Apri un nuovo terminale (lascia il backend attivo nell'altro):
 
 ```bash
 # 1. Entra nella cartella frontend
@@ -171,159 +154,9 @@ cp .env.local.example .env.local
 npm run dev
 ```
 
-Frontend sarà su: **http://localhost:3000**
-
----
-
-## 🐛 Troubleshooting
-
-### Backend non parte?
-```bash
-# 1. Verifica di essere nella cartella backend
-cd backend
-pwd  # Dovresti vedere .../AutoTriageNLP/backend
-
-# 2. Verifica che l'ambiente virtuale sia attivo
-which python  # Dovresti vedere .../backend/venv/bin/python
-
-# 3. Verifica che il modello esista
-ls -la models/unified_model.pkl
-
-# 4. Se non esiste, devi prima addestrare il modello:
-cd ..  # Torna alla root
-python src/train_unified_model.py
-```
-
-### Frontend da errori di connessione?
-```bash
-# 1. Verifica che il backend sia in esecuzione
-curl http://localhost:8000/api/v1/health
-
-# 2. Verifica il file .env.local del frontend:
-cat frontend/.env.local
-# Dovresti vedere: NEXT_PUBLIC_API_URL=http://localhost:8000
-
-# 3. Se il file non esiste, crealo:
-cd frontend
-cp .env.local.example .env.local
-```
-
-### Porte già in uso?
-```bash
-# Su Mac/Linux, trova cosa usa le porte:
-lsof -i :8000  # Backend
-lsof -i :3000  # Frontend
-
-# Chiudi i processi se necessario
-```
-
-### Problemi di download durante pip install?
-```bash
-# Se pip va in timeout durante l'installazione:
-pip install -r requirements.txt --timeout 300 --retries 5
-
-# Oppure con timeout ancora più lungo:
-pip install -r requirements.txt --default-timeout=1000
-
-# Se il problema persiste, installa i pacchetti principali singolarmente:
-pip install fastapi uvicorn[standard] pandas scikit-learn numpy lime --timeout 300
-pip install pydantic pydantic-settings python-dotenv joblib --timeout 300
-
-# Verifica di avere una connessione internet stabile
-ping files.pythonhosted.org
-```
-
-### Docker non funziona?
-
-**Backend fallisce con errore "unified_model.pkl not found"?**
-```bash
-# Devi prima generare il modello con il container di training
-docker-compose --profile training run --rm training
-
-# Poi riavvia l'applicazione
-docker-compose up --build
-```
-
-**Altri problemi Docker:**
-```bash
-# 1. Verifica che Docker Desktop sia in esecuzione
-docker --version
-
-# 2. Verifica che le porte siano libere
-netstat -ano | findstr :3000
-netstat -ano | findstr :8000
-
-# 3. Pulisci cache Docker e ricostruisci
-docker-compose down
-docker system prune -a
-docker-compose up --build
-```
-
----
-
-## 📊 Verifica Funzionamento
-
-1. **Health Check Backend:**
-   ```bash
-   curl http://localhost:8000/api/v1/health
-   ```
-   Dovrebbe restituire: `{"status": "healthy", "model_loaded": true}`
-
-2. **Test Classificazione:**
-   Visita http://localhost:3000/manual e prova a inserire un ticket
-
-3. **Test API Docs:**
-   Visita http://localhost:8000/api/v1/docs
-
----
-
-## 🛑 Spegnere i Servizi
-
-### Docker:
-```bash
-docker-compose down
-```
-
-### Manuale:
-- Chiudi i terminali o premi Ctrl+C in ognuno
-
----
-
-## 📝 Note Importanti
-
-**⚠️ Modello ML richiesto:**
-Questo progetto è fornito in stato "vergine" (senza modello pre-addestrato). Il backend necessita del file `models/unified_model.pkl` per funzionare.
-
-**Con Docker (consigliato):**
-```bash
-# Genera il modello senza installare nulla
-docker-compose --profile training run --rm training
-```
-
-**Senza Docker (sviluppo locale):**
-```bash
-# Devi installare Python e le dipendenze
-pip install pandas scikit-learn numpy matplotlib seaborn joblib deep_translator
-python src/train_unified_model.py
-```
-
-**Verifica che il modello esista:**
-```bash
-ls -la models/unified_model.pkl
-```
-
-**Senza il modello, il backend partirà ma le API di classificazione non funzioneranno.**
-
----
-
-## 🆘 Hai problemi?
-
-Controlla:
-1. ✅ Python 3.10+ installato?
-2. ✅ Node.js 20+ installato?
-3. ✅ Modello ML presente in `models/`?
-4. ✅ Porte 3000 e 8000 libere?
-5. ✅ Environment variables configurate?
+**Accesso:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
 
 ---
 
@@ -331,86 +164,58 @@ Controlla:
 
 ```plaintext
 /
-├── frontend/           # Next.js 15 Application
+├── frontend/          
 │   ├── src/
-│   │   ├── app/       # App Router pages
-│   │   │   ├── page.tsx           # Dashboard home
-│   │   │   ├── manual/            # Inserimento manuale
-│   │   │   ├── batch/             # Importazione CSV
-│   │   │   ├── metrics/           # Metriche modello
-│   │   │   ├── comparison/        # Confronto dati
-│   │   │   └── layout.tsx         # Root layout con glassmorphism
-│   │   ├── components/ # React components
-│   │   │   ├── ui/                # shadcn/ui components
-│   │   │   ├── GlassCard.tsx      # Glassmorphism card
-│   │   │   ├── PriorityBadge.tsx  # Priority badges
-│   │   │   ├── Navigation.tsx     # Back button
-│   │   │   └── MetricsChart.tsx   # Chart.js visualizations
-│   │   ├── lib/       # API client & utilities
-│   │   │   ├── api.ts             # Axios client
-│   │   │   └── constants.ts       # App constants
-│   │   └── contexts/  # Context API providers
+│   │   ├── app/      
+│   │   │   ├── page.tsx          
+│   │   │   ├── manual/           
+│   │   │   ├── batch/             
+│   │   │   ├── metrics/           
+│   │   │   ├── comparison/       
+│   │   │   └── layout.tsx         
+│   │   ├── components/
+│   │   │   ├── ui/              
+│   │   │   ├── GlassCard.tsx     
+│   │   │   ├── PriorityBadge.tsx 
+│   │   │   ├── Navigation.tsx   
+│   │   │   └── MetricsChart.tsx  
+│   │   ├── lib/     
+│   │   │   ├── api.ts           
+│   │   │   └── constants.ts     
+│   │   └── contexts/ 
 │   ├── package.json
 │   └── Dockerfile
 │
-├── backend/            # FastAPI Application
+├── backend/           
 │   ├── app/
-│   │   ├── api/       # API routes
+│   │   ├── api/       
 │   │   │   └── routes/
-│   │   │       ├── ticket.py        # Classification endpoints
-│   │   │       ├── metrics.py       # Metrics endpoints
-│   │   │       └── health.py        # Health check
-│   │   ├── models/    # ML models wrapper
-│   │   │   └── unified_model.py      # Model manager
-│   │   ├── services/  # Business logic
-│   │   │   ├── ticket_service.py    # Hybrid priority logic
-│   │   │   └── lime_service.py      # LIME explanations
-│   │   └── core/      # Configuration
-│   │       └── config.py             # Settings management
+│   │   │       ├── ticket.py       
+│   │   │       ├── metrics.py       
+│   │   │       └── health.py        
+│   │   ├── models/   
+│   │   │   └── unified_model.py     
+│   │   ├── services/ 
+│   │   │   ├── ticket_service.py  
+│   │   │   └── lime_service.py     
+│   │   └── core/     
+│   │       └── config.py           
 │   ├── requirements.txt
 │   └── Dockerfile
 │
-├── src/               # Codice Python per training e testing
-│   ├── unified_model.py         # Classe principale Modello ML
-│   ├── train_unified_model.py    # Script di addestramento
-│   ├── prepare_data.py          # Pipeline di pulizia dati
-│   ├── translate_data.py         # Script traduzione massiva
-│   ├── generate_synthetic_data.py # Generatore dati fittizi
-│   └── compare_models.py         # Test comparativo modelli
+├── src/              
+│   ├── unified_model.py         
+│   ├── train_unified_model.py   
+│   ├── prepare_data.py        
+│   ├── translate_data.py        
+│   ├── generate_synthetic_data.py
+│   └── compare_models.py       
 │
-├── img/               # Risorse statiche (Immagini)
-├── data/              # Dataset (Kaggle grezzo, Tradotto, Sintetico)
-├── models/            # Modelli ML serializzati (.pkl)
-└── docker-compose.yml # Container orchestration
+├── img/           
+├── data/          
+├── models/         
+└── docker-compose.yml
 ```
-
----
-
-## 📡 API Endpoints
-
-### Classificazione
-- `POST /api/v1/ticket/classify` - Classifica singolo ticket
-  - Request: `{ "text": "string" }`
-  - Response: `{ category, priority, confidence, probabilities, lime_explanation }`
-
-- `POST /api/v1/ticket/batch` - Classifica gruppi di ticket
-  - Request: `{ "texts": ["string", ...] }`
-  - Response: `{ results: [], summary: {} }`
-
-- `POST /api/v1/ticket/upload-csv` - Upload CSV per classificazione
-  - Request: `multipart/form-data` con file
-  - Response: `{ results: [], summary: {} }`
-
-### Metriche
-- `GET /api/v1/metrics/summary` - Metriche del modello
-  - Response: `{ category: {accuracy, precision, recall, f1}, priority: {...} }`
-
-- `GET /api/v1/metrics/images` - Path immagini metriche
-  - Response: `{ confusion_matrix_category: "path", confusion_matrix_priority: "path" }`
-
-### Health Check
-- `GET /api/v1/health` - Stato API e modello
-  - Response: `{ status: "ok", model_loaded: true }`
 
 ---
 
@@ -441,100 +246,6 @@ L'applicazione web con design glassmorphism offre:
    - Risultati test inversion
    - Conclusioni e deduzioni
 
----
-
-## 🎨 Stack Tecnologico
-
-### Frontend
-- **Next.js 15** - React Framework con App Router
-- **React 18** - UI library con hooks
-- **TypeScript** - Type safety
-- **TailwindCSS** - Styling utility-first
-- **Chart.js** - Visualizzazioni interattive
-- **Framer Motion** - Animazioni fluide
-- **Axios** - API client
-- **Context API** - State management nativo
-- **Lucide React** - Icon library
-
-### Backend
-- **FastAPI** - Modern API framework
-- **Python 3.10** - Linguaggio principale
-- **Uvicorn** - ASGI server
-- **Pydantic** - Data validation
-- **Scikit-Learn** - Machine Learning
-- **LIME** - Explainable AI
-- **Pandas** - Data manipulation
-- **NumPy** - Numerical computing
-
----
-
-## 📋 Caratteristiche Tecniche
-
-### Modello Unificato
-- **MultiOutputClassifier** per classificazione simultanea
-- 5 categorie: Hardware, Software, Reti, Accesso, Altro
-- 3 livelli di priorità: Alta, Media, Bassa
-- Logica ibrida ML + keyword per priorità accurate
-
-### Sistema Ibrido di Priorità
-- **Trigger Keywords**: forzano priorità Alta
-  - "virus", "hacker", "bloccato", "fermo", "critico", etc.
-- **Dampening Keywords**: riducono la priorità
-  - "non urgente", "con calma", "informazione", etc.
-- **Happy Keywords**: indicano problemi risolti
-  - "perfetto", "risolto", "complimenti", etc.
-
-### Explainable AI (LIME)
-- Visualizzazione parole chiave
-- Colore rosso per trigger (aumentano priorità)
-- Colore blu per supporto (riducono priorità)
-- Trasparenza nelle decisioni del modello
-
----
-
-## 🔬 Training del Modello
-
-Per addestrare il modello da zero:
-
-### Passo 1: Preparazione del Dataset
-
-```bash
-python src/prepare_data.py
-```
-Questo script pulisce i dati grezzi, mappa le categorie e prepara il CSV in italiano.
-
-### Passo 2: Addestramento
-
-```bash
-python src/train_unified_model.py
-```
-Addestra il modello, effettua split 80/20, salva metriche e modello `.pkl`.
-
-### Passo 3: Test Comparativo
-
-```bash
-python src/generate_synthetic_data.py
-python src/compare_models.py
-```
-Dimostra che dati sintetici portano a overfitting rispetto a dati reali.
-
----
-
-## 🎯 Performance del Modello
-
-Il modello addestrato su dati reali (~20.000 ticket da Kaggle) raggiunge:
-
-### Categoria
-- **Accuracy**: ~59%
-- **Precision**: ~65%
-- **F1-Score**: ~61%
-
-### Priorità
-- **Accuracy**: ~46%
-- Ottima generalizzazione su linguaggio naturale
-
----
-
 ## ​📄​ License
 
 Vedi [LICENSE](LICENSE) per dettagli.
@@ -543,9 +254,7 @@ Vedi [LICENSE](LICENSE) per dettagli.
 
 <div align="center">
 
-**Full Stack Architecture** - Next.js + FastAPI
-
-**[Documentazione PDF](../data/docs/template.pdf)** · **[Dataset Kaggle](https://www.kaggle.com/)** · **[API Docs](http://localhost:8000/api/v1/docs)**
+**[Dataset Kaggle](https://www.kaggle.com/)** 
 
 **Informatica per le Aziende Digitali (L-31) - Alex Di Paolo**
 
